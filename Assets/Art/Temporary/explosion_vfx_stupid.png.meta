@@ -1,0 +1,661 @@
+fileFormatVersion: 2
+guid: 873f0f25acd41ca4aaddf5c63d9ccb02
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3924906437351894589
+    second: explosion-ezgif.com-gif-to-sprite-converter_0
+  - first:
+      213: 8119354773141632446
+    second: explosion-ezgif.com-gif-to-sprite-converter_1
+  - first:
+      213: 1915953527588574623
+    second: explosion-ezgif.com-gif-to-sprite-converter_2
+  - first:
+      213: 6086014709104293446
+    second: explosion-ezgif.com-gif-to-sprite-converter_3
+  - first:
+      213: -4549061319581992746
+    second: explosion-ezgif.com-gif-to-sprite-converter_4
+  - first:
+      213: 4778395425969715502
+    second: explosion-ezgif.com-gif-to-sprite-converter_5
+  - first:
+      213: 4079556481937988886
+    second: explosion-ezgif.com-gif-to-sprite-converter_6
+  - first:
+      213: 2704091476851883222
+    second: explosion-ezgif.com-gif-to-sprite-converter_7
+  - first:
+      213: -2041527342411176530
+    second: explosion-ezgif.com-gif-to-sprite-converter_8
+  - first:
+      213: -5864021893487192671
+    second: explosion-ezgif.com-gif-to-sprite-converter_9
+  - first:
+      213: -1396741611077507763
+    second: explosion-ezgif.com-gif-to-sprite-converter_10
+  - first:
+      213: -6206007674490981998
+    second: explosion-ezgif.com-gif-to-sprite-converter_11
+  - first:
+      213: 2056268395165379138
+    second: explosion-ezgif.com-gif-to-sprite-converter_12
+  - first:
+      213: -5266254376987003067
+    second: explosion-ezgif.com-gif-to-sprite-converter_13
+  - first:
+      213: -3295386536757073559
+    second: explosion-ezgif.com-gif-to-sprite-converter_14
+  - first:
+      213: 2722163365213602873
+    second: explosion-ezgif.com-gif-to-sprite-converter_15
+  - first:
+      213: 1823002456343625538
+    second: explosion-ezgif.com-gif-to-sprite-converter_16
+  - first:
+      213: 2552804720843736148
+    second: explosion-ezgif.com-gif-to-sprite-converter_17
+  - first:
+      213: 1043207723971940090
+    second: explosion-ezgif.com-gif-to-sprite-converter_18
+  - first:
+      213: -3640166438608878006
+    second: explosion-ezgif.com-gif-to-sprite-converter_19
+  - first:
+      213: -1961957833743227859
+    second: explosion-ezgif.com-gif-to-sprite-converter_20
+  - first:
+      213: -1299624170572043487
+    second: explosion-ezgif.com-gif-to-sprite-converter_21
+  - first:
+      213: -2977881444890169715
+    second: explosion-ezgif.com-gif-to-sprite-converter_22
+  - first:
+      213: 4420269947074116096
+    second: explosion-ezgif.com-gif-to-sprite-converter_23
+  - first:
+      213: -7765274793335994035
+    second: explosion-ezgif.com-gif-to-sprite-converter_24
+  - first:
+      213: -5450911767785251339
+    second: explosion-ezgif.com-gif-to-sprite-converter_25
+  - first:
+      213: -1913388643772897742
+    second: explosion-ezgif.com-gif-to-sprite-converter_26
+  - first:
+      213: -967711860948249595
+    second: explosion-ezgif.com-gif-to-sprite-converter_27
+  - first:
+      213: -4075395638085987055
+    second: explosion-ezgif.com-gif-to-sprite-converter_28
+  - first:
+      213: -3903745137797756340
+    second: explosion-ezgif.com-gif-to-sprite-converter_29
+  - first:
+      213: 4477433733918679260
+    second: explosion-ezgif.com-gif-to-sprite-converter_30
+  - first:
+      213: 1633931023230362309
+    second: explosion-ezgif.com-gif-to-sprite-converter_31
+  - first:
+      213: -7653461748097058154
+    second: explosion-ezgif.com-gif-to-sprite-converter_32
+  - first:
+      213: 4116015474675977929
+    second: explosion-ezgif.com-gif-to-sprite-converter_33
+  - first:
+      213: 2847637044510539335
+    second: explosion-ezgif.com-gif-to-sprite-converter_34
+  - first:
+      213: -3653517013367119547
+    second: explosion-ezgif.com-gif-to-sprite-converter_35
+  - first:
+      213: -7922024782558246049
+    second: explosion-ezgif.com-gif-to-sprite-converter_36
+  - first:
+      213: -937493785140091738
+    second: explosion-ezgif.com-gif-to-sprite-converter_37
+  - first:
+      213: 5252871777752053882
+    second: explosion-ezgif.com-gif-to-sprite-converter_38
+  - first:
+      213: -4235577631635958835
+    second: explosion-ezgif.com-gif-to-sprite-converter_39
+  - first:
+      213: 3537435312870161711
+    second: explosion-ezgif.com-gif-to-sprite-converter_40
+  - first:
+      213: 9038637460843520547
+    second: explosion-ezgif.com-gif-to-sprite-converter_41
+  - first:
+      213: -3279544478596144298
+    second: explosion-ezgif.com-gif-to-sprite-converter_42
+  - first:
+      213: 3945666390526801847
+    second: explosion-ezgif.com-gif-to-sprite-converter_43
+  - first:
+      213: 4652505362804105905
+    second: explosion-ezgif.com-gif-to-sprite-converter_44
+  - first:
+      213: 6946266209602224804
+    second: explosion-ezgif.com-gif-to-sprite-converter_45
+  - first:
+      213: 5358925557716962057
+    second: explosion-ezgif.com-gif-to-sprite-converter_46
+  - first:
+      213: 6946924697723399283
+    second: explosion-ezgif.com-gif-to-sprite-converter_47
+  - first:
+      213: -3616940348541407800
+    second: explosion-ezgif.com-gif-to-sprite-converter_48
+  - first:
+      213: 7617890289612282947
+    second: explosion-ezgif.com-gif-to-sprite-converter_49
+  - first:
+      213: -5449312894927004602
+    second: explosion-ezgif.com-gif-to-sprite-converter_50
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: explosion_vfx_stupid_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 600
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a54e6f0ed52bc054fab8e79d079593be
+      internalID: -2001416500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: explosion_vfx_stupid_1
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 600
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6bc57c9a8d5fe6e45b5ebc7f486186f6
+      internalID: 357579099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: explosion_vfx_stupid_2
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 600
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e550fec9243983d4db281c63ccc069da
+      internalID: 1828479033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: explosion_vfx_stupid_3
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 600
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d15939cdee8691f44a59e596991a911d
+      internalID: -2117130790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: explosion_vfx_stupid_4
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 600
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4b59110dd3bae4458f961ea188edad0
+      internalID: -391492762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: explosion_vfx_stupid_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 400
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9edd7464e08ce184bb689a33d7becb5a
+      internalID: 94353449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: explosion_vfx_stupid_6
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 400
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36c4377b6254750459d4974962295d8a
+      internalID: -1348880130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: explosion_vfx_stupid_7
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 400
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce3b1384750de164d8c78a738f397bd8
+      internalID: 1731062722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: explosion_vfx_stupid_8
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 400
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2cd36e786603454458718641c80a2e68
+      internalID: -1627122567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: explosion_vfx_stupid_9
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 400
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a066f030c19a6284e86e5481b6721e2e
+      internalID: -1123401085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: explosion_vfx_stupid_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 200
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfb0f0c2c3f57b04e88c6c51df683c73
+      internalID: 540514408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: explosion_vfx_stupid_11
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 200
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78a8fedfa6dceb54193ed23288b7ec95
+      internalID: 975981300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: explosion_vfx_stupid_12
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 200
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7cf9881422bbf5040a7f330415d438f0
+      internalID: 1665050960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: explosion_vfx_stupid_13
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 200
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe9ace568e609e44284529c9bea3cbf1
+      internalID: 1889514498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: explosion_vfx_stupid_14
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 200
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e3d2a23fb0820945adf02a88a037914
+      internalID: -142255574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: explosion_vfx_stupid_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 658c556adf9141e4f8d72a3619850795
+      internalID: -752226247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: explosion_vfx_stupid_16
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 0
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ddf45954ffaedd94eae7fac7ff2f7bc1
+      internalID: -606570401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 9c7e94fb9765e4c4e86a8803ac01f1b6
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      explosion_vfx_stupid_0: -2001416500
+      explosion_vfx_stupid_1: 357579099
+      explosion_vfx_stupid_10: 540514408
+      explosion_vfx_stupid_11: 975981300
+      explosion_vfx_stupid_12: 1665050960
+      explosion_vfx_stupid_13: 1889514498
+      explosion_vfx_stupid_14: -142255574
+      explosion_vfx_stupid_15: -752226247
+      explosion_vfx_stupid_16: -606570401
+      explosion_vfx_stupid_2: 1828479033
+      explosion_vfx_stupid_3: -2117130790
+      explosion_vfx_stupid_4: -391492762
+      explosion_vfx_stupid_5: 94353449
+      explosion_vfx_stupid_6: -1348880130
+      explosion_vfx_stupid_7: 1731062722
+      explosion_vfx_stupid_8: -1627122567
+      explosion_vfx_stupid_9: -1123401085
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
