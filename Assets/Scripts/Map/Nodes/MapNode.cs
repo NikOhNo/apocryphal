@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEditor.UI;
 using UnityEngine;
@@ -15,7 +17,9 @@ public class MapNode : MonoBehaviour
     [SerializeField] private Color highlightColor; // color for mouse highlight
     [SerializeField] private Color occupiedColor; // color when Occupied
     
-    [SerializeField] private MapNode[] connections;
+    [SerializeField] private List<MapNode> nodeConnections;
+    [SerializeField] private List<MapNodeConnector> connectors;
+    
     [SerializeField] private GameObject nodeConnectorPrefab;
     
     public string message;
@@ -34,11 +38,14 @@ public class MapNode : MonoBehaviour
     
     public bool IsVisited => visited;
     
-    private Dictionary<MapNode, MapNodeConnector> connectionDict = new Dictionary<MapNode, MapNodeConnector>(); // for keeping track of created MapNodeConnectors.
+    // [SerializeField] [SerializedDictionary("MapNode", "MapNodeConnector")] SerializedDictionary<MapNode, MapNodeConnector> connectionDict = new(); // for keeping track of created MapNodeConnectors.
     // could alternatively make this on the MapManager so that each node doesn't have an entire dictionary. although these
     // dicts are going to be only 2 or 3 entries long, so it won't be that much more space complexity overhead to store one 
     // dict per node versus one large dict on the mapmanager. worth considering. 
 
+    // [SerializeField] MapNode[] connectedNodes = Array.Empty<MapNode>();
+    // [SerializeField] MapNodeConnector[] nodeConnectors = Array.Empty<MapNodeConnector>(); 
+    
     void Awake()
     {
         // sprite is a child so it can have a separate transform/scale
@@ -47,6 +54,7 @@ public class MapNode : MonoBehaviour
         var occupiedIndicator = transform.Find("OccupiedIndicator");
         occIndSpriteRenderer = occupiedIndicator.GetComponent<SpriteRenderer>();
     }
+    
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -63,17 +71,18 @@ public class MapNode : MonoBehaviour
         
         spriteRenderer.sprite = sprite;
 
-        if (connections != null)
+        if (nodeConnections != null)
         {
-            foreach (MapNode n in connections)
+            foreach (MapNode n in nodeConnections)
             {
                 // instantiate a MapNodeConnector for every connection. 
                 // if the connection ALREADY has a connector to THIS NODE, then we don't create one.
                 // this is kind of a messy spaghetti way of doing it BUT it's really easy. and simple. 
-                // i don't think it will become an issue later :)
+                // i don't think it will become an issue later :) // ADDENDUM 7/13/25 - :(
 
                 if (!HasConnection(n))
                 {
+                    Debug.Log($"node {this} doesn't have a connection with node {n}! so i'm creating a connection with Them!");
                     CreateConnection(n);
                 }
             }
@@ -89,40 +98,7 @@ public class MapNode : MonoBehaviour
             occIndSpriteRenderer.gameObject.SetActive(true); 
         }
     }
-
-    // creates a MapNodeConnector between this MapNode and MapNode `node`
-    public void CreateConnection(MapNode node)
-    {
-        GameObject connGO = Instantiate(nodeConnectorPrefab);
-        MapNodeConnector conn = connGO.GetComponent<MapNodeConnector>();
-        conn.firstNode = this;
-        conn.secondNode = node;
-        AddConnectionToDictionary(node, conn);
-        node.AddConnectionToDictionary(this, conn); // add it on the other node's dictionary
-    }
-
-    public void AddConnectionToDictionary(MapNode node, MapNodeConnector conn)
-    {
-        if (connectionDict.TryAdd(node, conn))
-        {
-            // Debug.Log($"added connection {conn} to node {node}'s dictionary!");
-        }
-    }
-
-    // check if this MapNode has a connection (i.e., a MapNodeConnector) with MapNode `node`
-    public bool HasConnection(MapNode node)
-    {
-        return connectionDict.ContainsKey(node);
-    }
-
-    public MapNodeConnector GetConnection(MapNode node)
-    {
-        if (HasConnection(node))
-        {
-            return connectionDict[node];
-        }
-        return null;
-    }
+    
 
     // called when the player travels to this node
     public MapNode TravelTo()
@@ -190,15 +166,135 @@ public class MapNode : MonoBehaviour
         OnNodeClickedEvent?.Invoke(this);
     }
 
-    public MapNode[] GetConnectedNodes()
+    public List<MapNode> GetConnectedNodes()
     {
-        return connections;
+        return nodeConnections;
     }
 
-    public void AddConnection(GameObject otherMapNodeGO)
+    // creates a MapNodeConnector between this MapNode and MapNode `node`
+    public void CreateConnection(MapNode otherNode)
     {
-        Debug.Log("adding connection???");
+        GameObject connGO = Instantiate(nodeConnectorPrefab);
+        MapNodeConnector conn = connGO.GetComponent<MapNodeConnector>();
+        conn.Initialize(this, otherNode);
+        AddConnectionToList(otherNode, conn);
+        otherNode.AddConnectionToList(this, conn);
     }
+
+    // create and return a MapNodeConnector
+    public MapNodeConnector CreateConnectionEditor()
+    {
+        GameObject connGO = Instantiate(nodeConnectorPrefab);
+        MapNodeConnector conn = connGO.GetComponent<MapNodeConnector>();
+        return conn;
+    }
+
+    public void DestroyConnection(MapNode otherNode, bool inEditor)
+    {
+        if (HasConnection(otherNode))
+        {
+            MapNodeConnector conn = GetConnection(otherNode);
+            if (inEditor) DestroyImmediate(conn.gameObject);
+            else Destroy(conn.gameObject);
+            RemoveConnectionFromList(otherNode);
+            otherNode.RemoveConnectionFromList(this);
+        }
+        else
+        {
+            Debug.Log($"otherNode {this} doesn't have a connection with otherNode {otherNode}, aborting");
+        }
+    }
+
+    public void AddConnectionToList(MapNode otherNode, MapNodeConnector conn)
+    {
+        if (HasConnection(otherNode))
+        {
+            Debug.Log("attempt to add entry to array but it's already present. what");
+        }
+        else 
+        {
+            // add them both, should be at the same index (important)
+            nodeConnections.Add(otherNode);
+            connectors.Add(conn);
+        }
+    }
+
+    public void RemoveConnectionFromList(MapNode otherNode)
+    {
+        if (HasConnection(otherNode))
+        {
+            // this is quite inefficient so make sure this method isn't being called too often
+            int index = nodeConnections.IndexOf(otherNode);
+            nodeConnections.RemoveAt(index);
+            connectors.RemoveAt(index);
+        }
+    }
+    
+    public void AddConnectionEditor(GameObject otherMapNodeGO)
+    {
+        Debug.Log($"adding connection??? with go {otherMapNodeGO}");
+        MapNode otherMapNode = otherMapNodeGO.GetComponent<MapNode>();
+        if (HasConnection(otherMapNode))
+        {
+            Debug.LogWarning($"Map node {this} already has a connection with {otherMapNodeGO}!");
+            return;
+        }
+        CreateConnection(otherMapNode);
+    }
+
+    public void RemoveConnectionEditor(MapNode otherMapNode)
+    {
+        Debug.Log($"removing connection with go {otherMapNode.gameObject}");
+        DestroyConnection(otherMapNode, true);
+    }
+    
+    private T[] RemoveElementAt<T>(T[] arr, int RemoveAt)
+    {
+        T[] newArr = new T[arr.Length - 1];
+
+        int i = 0;
+        int j = 0;
+        while (i < arr.Length)
+        {
+            if (i != RemoveAt)
+            {
+                newArr[j] = arr[i];
+                j++;
+            }
+
+            i++;
+        }
+
+        return newArr;
+    }
+
+    // check if this MapNode has a connection (i.e., a MapNodeConnector) with MapNode `node`
+    public bool HasConnection(MapNode node)
+    {
+        int index = nodeConnections.IndexOf(node);
+        if (index >= 0)
+        {
+            return connectors.Count > index; // presence in the nodeConnectors array indicates that there is a connection
+        }
+        return false;
+    }
+
+    public MapNodeConnector GetConnection(MapNode node)
+    {
+        if (HasConnection(node))
+        {
+            int index = nodeConnections.IndexOf(node);
+            if (index >= 0)
+            {
+                return connectors[index];
+            }
+        }
+        return null;
+    }
+    
+    
+    
+    
     
     // IN-EDITOR DRAWING
     private void OnDrawGizmos()
@@ -229,11 +325,12 @@ public class MapNode : MonoBehaviour
 
         Gizmos.color = Color.white;
 
-        if (connections != null)
+        if (nodeConnections != null)
         {
-            foreach (MapNode n in connections)
+            foreach (MapNode n in nodeConnections)
             {
-                Gizmos.DrawLine(this.transform.position, n.transform.position);
+                // drawing conns between nodes in editor. this is deprecated because connections are now created as gameobjects in the editor
+                // Gizmos.DrawLine(this.transform.position, n.transform.position);
                 
                 // below is my cool math that draws arrows in the direction of the connections, intended for one-way connections.
                 // since it's literally useless (for now...) it's commented out lol but i didn't want to remove it bc its cool
@@ -252,6 +349,24 @@ public class MapNode : MonoBehaviour
                 // Gizmos.DrawLine(basePosition, basePosition + r);
             }
         }
+    }
+
+
+    private void PrintDictionary(Dictionary<MapNode, MapNodeConnector> dictionary)
+    {
+        string s = "";
+        foreach (var pair in dictionary)
+        {
+            s += pair.Key.name + ", ";
+            s += pair.Value.name + "\n";
+        }
+        Debug.Log(s);
+    }
+
+    private void OnGUI()
+    {
+        // jesus fucking christ
+        // constantly update editor dictionary with the nodes present in its 
     }
     
 }
