@@ -55,25 +55,29 @@ public class MapNodeEditor : Editor
         // this branch will be executed when the above created ObjectPicker is closed
         if (Event.current.commandName == "ObjectSelectorClosed")
         {
-            // list.InsertArrayElementAtIndex(list.arraySize);
-            // var obj = (GameObject)EditorGUIUtility.GetObjectPickerObject();
-            // list.GetArrayElementAtIndex(list.arraySize - 1).objectReferenceValue = obj;
-            // mapNode.AddConnectionEditor(obj);
-            // serializedObject.ApplyModifiedProperties();
-            
             Object obj = EditorGUIUtility.GetObjectPickerObject();
-            AddConnection(mapNode, obj);
+            if (obj != null)
+            {
+                AddConnection(mapNode, obj);
+            }
         }
     }
 
     private void AddConnection(MapNode thisNode, Object otherNodeObject)
     {
         // todo move all of these to function params
+        // ^ honestly this isn't very performance critical code so it probably doesn't matter
         SerializedProperty nodeList =  serializedObject.FindProperty("nodeConnections");
         SerializedProperty connList = serializedObject.FindProperty("connectors");
         
         
         MapNode otherNode = ((GameObject)otherNodeObject).GetComponent<MapNode>();
+
+        if (thisNode == otherNode)
+        {
+            Debug.LogError("Attempted to connect a node to itself! Aborting connection creation.");
+            return;
+        }
         
         nodeList.InsertArrayElementAtIndex(nodeList.arraySize);
         nodeList.GetArrayElementAtIndex(nodeList.arraySize - 1).objectReferenceValue = otherNode;
@@ -116,11 +120,30 @@ public class MapNodeEditor : Editor
         SerializedProperty otherNodeList = serOtherNode.FindProperty("nodeConnections");
         SerializedProperty otherConnList = serOtherNode.FindProperty("connectors");
         
-        otherNodeList.DeleteArrayElementAtIndex(index);
-        otherConnList.DeleteArrayElementAtIndex(index);
+        // are you stupid
+        // find the correct index by using the connector from the first node
+        int otherIndex = FindIndexOf(otherConnList, connToRemove);
+        
+        otherNodeList.DeleteArrayElementAtIndex(otherIndex);
+        otherConnList.DeleteArrayElementAtIndex(otherIndex);
         serOtherNode.ApplyModifiedProperties();
         
         // finally just destroy the connector that we removed (not the node that would be bad)
         DestroyImmediate(connToRemove.gameObject);
+    }
+
+    // method to return the index of the mapNodeConnector conn in the list list
+    // returns -1 if it does not exist
+    private int FindIndexOf(SerializedProperty list, MapNodeConnector conn)
+    {
+        for (int i = 0; i < list.arraySize; i++)
+        {
+            if (list.GetArrayElementAtIndex(i).objectReferenceValue == conn)
+            {
+                return i;
+            }
+        }
+        
+        return -1;
     }
 }
