@@ -28,6 +28,9 @@ public class MapNode : MonoBehaviour
     public static event Action<MapNode> OnNodeHoverEvent; // called when the mouse HOVERS over this node
     public static event Action<MapNode> OnNodeUnhoverEvent; // called when the mouse STOPS HOVERING over this node
     
+    public event Action OnEncounterStartEvent; // note: not static
+    public event Action OnEncounterEndEvent;
+    
     
     private SpriteRenderer spriteRenderer;
     private SpriteRenderer occIndSpriteRenderer; // occupiedIndicatorSpriteRenderer was just too long
@@ -119,10 +122,7 @@ public class MapNode : MonoBehaviour
     {
         if (mapNodeData && mapNodeData.onTravelScene != null)
         {
-            var scn = mapNodeData.onTravelScene;
-            string path = AssetDatabase.GetAssetOrScenePath(scn);
-            SceneManager.LoadSceneAsync(SceneUtility.GetBuildIndexByScenePath(path), LoadSceneMode.Additive);
-            // SceneManager.LoadSceneAsync(scn.path, LoadSceneMode.Additive);
+            MapEncounterManager.Instance.StartNewEncounter(mapNodeData.onTravelScene); // this instantiates the scene and everything
         }
         else
         {
@@ -229,44 +229,6 @@ public class MapNode : MonoBehaviour
             connectors.RemoveAt(index);
         }
     }
-    
-    public void AddConnectionEditor(GameObject otherMapNodeGO)
-    {
-        Debug.Log($"adding connection??? with go {otherMapNodeGO}");
-        MapNode otherMapNode = otherMapNodeGO.GetComponent<MapNode>();
-        if (HasConnection(otherMapNode))
-        {
-            Debug.LogWarning($"Map node {this} already has a connection with {otherMapNodeGO}!");
-            return;
-        }
-        CreateConnection(otherMapNode);
-    }
-
-    public void RemoveConnectionEditor(MapNode otherMapNode)
-    {
-        Debug.Log($"removing connection with go {otherMapNode.gameObject}");
-        DestroyConnection(otherMapNode, true);
-    }
-    
-    private T[] RemoveElementAt<T>(T[] arr, int RemoveAt)
-    {
-        T[] newArr = new T[arr.Length - 1];
-
-        int i = 0;
-        int j = 0;
-        while (i < arr.Length)
-        {
-            if (i != RemoveAt)
-            {
-                newArr[j] = arr[i];
-                j++;
-            }
-
-            i++;
-        }
-
-        return newArr;
-    }
 
     // check if this MapNode has a connection (i.e., a MapNodeConnector) with MapNode `node`
     public bool HasConnection(MapNode node)
@@ -291,10 +253,6 @@ public class MapNode : MonoBehaviour
         }
         return null;
     }
-    
-    
-    
-    
     
     // IN-EDITOR DRAWING
     private void OnDrawGizmos()
@@ -349,24 +307,6 @@ public class MapNode : MonoBehaviour
                 // Gizmos.DrawLine(basePosition, basePosition + r);
             }
         }
-    }
-
-
-    private void PrintDictionary(Dictionary<MapNode, MapNodeConnector> dictionary)
-    {
-        string s = "";
-        foreach (var pair in dictionary)
-        {
-            s += pair.Key.name + ", ";
-            s += pair.Value.name + "\n";
-        }
-        Debug.Log(s);
-    }
-
-    private void OnGUI()
-    {
-        // jesus fucking christ
-        // constantly update editor dictionary with the nodes present in its 
     }
     
 }

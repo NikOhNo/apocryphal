@@ -12,6 +12,7 @@ public class MapManager : MonoBehaviour
     [SerializeField] private bool doVisitOnce = false; // enables/disables nodes not being reachable after visiting them once
     
     private bool inTransit = false;
+    public MapNodeConnector occupiedConnector;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -29,8 +30,8 @@ public class MapManager : MonoBehaviour
     private void OnDisable()
     {
         MapNode.OnNodeClickedEvent -= TryTravelToNode;
-        MapNode.OnNodeHoverEvent += OnNodeHover;
-        MapNode.OnNodeUnhoverEvent += OnNodeUnhover;
+        MapNode.OnNodeHoverEvent -= OnNodeHover;
+        MapNode.OnNodeUnhoverEvent -= OnNodeUnhover;
     }
 
     private void OnNodeHover(MapNode n)
@@ -66,6 +67,7 @@ public class MapManager : MonoBehaviour
         // have we visited this node once already and is visitOnce enabled?
         if (doVisitOnce && n.IsVisited)
         {
+            // (this branch is probably obsolete)
             Debug.Log("Selected node was already visited, not traveling anywhere!");
             return;
         }
@@ -83,8 +85,8 @@ public class MapManager : MonoBehaviour
             if (occupiedMapNode.HasConnection(n)) // have a connection to the node
             {
                 occupiedMapNode.OnLeaveNode();
-                var conn = occupiedMapNode.GetConnection(n); // get the connector so we can activate its travel anim
-                conn.StartTravelAnimation(occupiedMapNode, OnFinishTraveling);
+                occupiedConnector = occupiedMapNode.GetConnection(n); // get the connector so we can activate its travel anim
+                occupiedConnector.StartTraveling(occupiedMapNode, OnFinishTraveling);
                 
                 occupiedMapNode = n;
                 inTransit = true;
@@ -98,7 +100,29 @@ public class MapManager : MonoBehaviour
 
     private void OnFinishTraveling(MapNode n)
     {
+        occupiedConnector = null;
         occupiedMapNode.TravelTo(); // meowwwwy
         inTransit = false;
+    }
+
+    // called when an "encounter" happens anywhere on the map, for now will pause everything so the player can't move around while in an encounter
+    // in this context an encounter is something like an enemy encounter, event, shop, what have you
+    public void OnEncounterStart()
+    {
+        if (occupiedConnector)
+        {
+            occupiedConnector.PauseTravel();
+        }
+        // TODO pause all the other Stuff going on on the map
+    }
+
+    public void OnEncounterEnd()
+    {
+        // we don't really care if the node is the one we're occupying
+        if (occupiedConnector)
+        {
+            occupiedConnector.UnpauseTravel();
+        }
+        // TODO unpause all the other Stuff going on on the map
     }
 }

@@ -2,10 +2,11 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public class MapNodeConnector : MonoBehaviour
 {
-    // tolerance for determining whether 
+    // tolerance for determining whether we've reached the end of the connector
     const float DISTANCE_TOLERANCE = 0.001f;
     
     // class for connectors between map nodes
@@ -14,21 +15,33 @@ public class MapNodeConnector : MonoBehaviour
     // MapNodes will create one of these between them and each of their connections
     // currently this does both visual logic and travel time/encounter logic which is subject to change. might want to separate them.
     
+    
+    
     public MapNode firstNode;
     public MapNode secondNode;
     
     [SerializeField] private float travelTime = 1.0f; // travel time in seconds
+    [SerializeField] private SO_MapNodeConnectorData data;
     
     // visual stuff, very subject to change
     public float lineWidth = 0.1f;
     public Color normalLineColor = Color.gray;
     public Color highlightedLineColor = Color.white;
     
+    public Color pausedColor = Color.blue;
+    
+    private Color beforePausedColor;
+    
     private LineRenderer mainLine;
     private LineRenderer chevronTop;
     private LineRenderer chevronBottom;
     
     private SpriteRenderer transitSpriteRenderer;
+    
+    private bool paused = false; // if this is true and the DoTravelAnimation coroutine is running, it will NOT move and will NOT load any encounters.
+    // intended to be used when an encounter is.. encountered so that the player's movement over the connector is paused
+    
+    private bool hadEncounter = false;
 
     void Awake()
     {
@@ -72,33 +85,79 @@ public class MapNodeConnector : MonoBehaviour
         }
     }
 
-    public void StartTravelAnimation(MapNode startNode, Action<MapNode> onFinishedCallback = null)
+    public void PauseTravel()
+    {
+        paused = true;
+        beforePausedColor = mainLine.startColor;
+        mainLine.startColor = pausedColor;
+        mainLine.endColor = pausedColor;
+    }
+
+    public void UnpauseTravel()
+    {
+        paused = false;
+        mainLine.startColor = beforePausedColor;
+        mainLine.endColor = pausedColor;
+    }
+
+    public void StartTraveling(MapNode startNode, Action<MapNode> onFinishedCallback = null)
     {
         transitSpriteRenderer.transform.position = startNode.transform.position;
         transitSpriteRenderer.enabled = true;
-        
-        var endNode = startNode == firstNode ? secondNode : firstNode; // we can start from either end, so set the end position to the other node that is not the start
-        StartCoroutine(DoTravelAnimation(travelTime, startNode.transform.position, endNode.transform.position, startNode, onFinishedCallback));
-    }
 
-    private IEnumerator DoTravelAnimation(float travelLength, Vector2 startPos, Vector2 endPos, MapNode startNode, Action<MapNode> onFinishedCallback = null)
-    {
-        float elapsedTime = 0.0f;
-        Debug.Log(travelLength);
-        Vector2 diff = new Vector2(transitSpriteRenderer.transform.position.x,  transitSpriteRenderer.transform.position.y) - endPos;
-        float dist = new Vector2(Mathf.Abs(diff.x),  Mathf.Abs(diff.y)).magnitude;
-        Debug.Log(dist);
-        while (dist > DISTANCE_TOLERANCE && elapsedTime < travelLength) // stop moving if we've reached our destination OR taken longer than the travelLength indicates we should
+        bool willEncounter = false;
+        if (data)
         {
-            float interp = Mathf.Clamp(elapsedTime / travelLength, 0.0f, 1.0f); // clamp to ensure we don't get any funky values
-            transitSpriteRenderer.transform.position = Vector3.Lerp(startPos, endPos, interp);
-            elapsedTime += Time.deltaTime;
-            diff = new Vector2(transitSpriteRenderer.transform.position.x,  transitSpriteRenderer.transform.position.y) - endPos;
-            dist = new Vector2(Mathf.Abs(diff.x),  Mathf.Abs(diff.y)).magnitude;
-            yield return null;
+            float encounterChance = data.encounterChance;
+        
+            // generate a random number from 0 to 1
+            float roll = Random.value;
+            willEncounter = (roll < encounterChance) && (data.encounterScene != null);
         }
         
-        Debug.Log("FUCK");
+        var endNode = startNode == firstNode ? secondNode : firstNode; // we can start from either end, so set the end position to the other node that is not the start
+        StartCoroutine(DoTravelAnimation(travelTime, startNode.transform.position, endNode.transform.position, startNode, willEncounter, onFinishedCallback));
+    }
+
+    // coroutine might not be necessary, because it needs to be pausable
+    private IEnumerator DoTravelAnimation(float travelLength, Vector2 startPos, Vector2 endPos, MapNode startNode, bool willEncounter, Action<MapNode> onFinishedCallback = null)
+    {
+        float elapsedTime = 0.0f;
+        
+        float encounterProgressThreshold = -1.0f;
+        if (willEncounter)
+        {
+            encounterProgressThreshold = 0.5f;
+        }
+        
+        Vector2 diff = new Vector2(transitSpriteRenderer.transform.position.x,  transitSpriteRenderer.transform.position.y) - endPos;
+        float dist = new Vector2(Mathf.Abs(diff.x),  Mathf.Abs(diff.y)).magnitude;
+        while (dist > DISTANCE_TOLERANCE && elapsedTime < travelLength) // stop moving if we've reached our destination OR taken longer than the travelLength indicates we should
+        {
+            // if we're paused just stop here
+            if (paused)
+            {
+                yield return null;
+            }
+            else
+            {
+                float interp =
+                    Mathf.Clamp(elapsedTime / travelLength, 0.0f, 1.0f); // clamp to ensure we don't get any funky values
+                
+                if (!hadEncounter && willEncounter && interp >= encounterProgressThreshold)
+                {
+                    hadEncounter = true;
+                    MapEncounterManager.Instance.StartNewEncounter(data.encounterScene); // raghhhh very temporary for now until more functionality is defined for running into encounters on conns
+                }
+                
+                transitSpriteRenderer.transform.position = Vector3.Lerp(startPos, endPos, interp);
+                elapsedTime += Time.deltaTime;
+                diff = new Vector2(transitSpriteRenderer.transform.position.x,
+                    transitSpriteRenderer.transform.position.y) - endPos;
+                dist = new Vector2(Mathf.Abs(diff.x), Mathf.Abs(diff.y)).magnitude;
+                yield return null;
+            }
+        }
         
         transitSpriteRenderer.enabled = false;
         SetHighlighted(false);
