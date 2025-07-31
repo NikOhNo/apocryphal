@@ -1,7 +1,9 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public interface IStateJob
 {
-    public void StartJob(Action onJobComplete);
+    public UnityEvent OnComplete { get; }
+    public void StartJob();
 }

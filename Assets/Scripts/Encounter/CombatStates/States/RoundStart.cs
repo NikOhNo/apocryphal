@@ -10,8 +10,10 @@ public class RoundStart : CombatState
     {
         base.Enter(encounter);
 
-        QueueJobs();
-        PerformNextJob();
+        // QueueJobs();
+        // PerformNextJob();
+        
+        Jobs.Enqueue(new EndStateJob(Exit));
     }
 
     public override void Exit()
@@ -21,7 +23,7 @@ public class RoundStart : CombatState
 
     protected override bool CanExit()
     {
-        return _jobs.Count == 0;
+        return Jobs.Count == 0;
     }
 
     protected virtual void QueueJobs()
@@ -31,10 +33,11 @@ public class RoundStart : CombatState
 
     protected virtual void PerformNextJob()
     {
-        if (_jobs.Count > 0)
+        if (Jobs.Count > 0)
         {
-            IStateJob nextJob = _jobs.Dequeue();
-            nextJob.StartJob(PerformNextJob);
+            IStateJob nextJob = Jobs.Dequeue();
+            nextJob.OnComplete.AddListener( () => PerformNextJob() );
+            nextJob.StartJob();
         }
         else
         {

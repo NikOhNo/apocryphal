@@ -10,7 +10,9 @@ public class PlayerTurnEnd : CombatState
 
         // TODO: perform turn end jobs
 
-        Exit();
+        Jobs.Enqueue(new EndStateJob(Exit));
+        
+        // Exit();
     }
 
     public override void Exit()

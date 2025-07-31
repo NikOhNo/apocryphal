@@ -8,7 +8,9 @@ public class PlayerTurnStart : CombatState
     {
         base.Enter(encounter);
 
-        _encounter.transitionHandler.HandleTransition(StateType);
+        Jobs.Enqueue(new EndStateJob(Exit));
+        
+        // Exit();
     }
 
     public override void Exit()

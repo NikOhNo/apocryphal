@@ -9,8 +9,10 @@ public class EnemyTurnStart : CombatState
         base.Enter(encounter);
 
         // TODO: perform enemy turn start jobs
+        
+        Jobs.Enqueue(new EndStateJob(Exit));
 
-        Exit();
+        // Exit();
     }
 
     public override void Exit()

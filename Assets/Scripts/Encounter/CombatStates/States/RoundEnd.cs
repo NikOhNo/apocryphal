@@ -10,7 +10,9 @@ public class RoundEnd : CombatState
 
         // TODO: round end jobs
 
-        Exit();
+        Jobs.Enqueue(new EndStateJob(Exit));
+        
+        // Exit();
     }
 
     public override void Exit()

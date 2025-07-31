@@ -9,8 +9,10 @@ public class EnemyTurnEnd : CombatState
         base.Enter(encounter);
 
         // TODO: Enemy Turn End jobs
+        
+        Jobs.Enqueue(new EndStateJob(Exit));
 
-        Exit();
+        // Exit();
     }
 
     public override void Exit()

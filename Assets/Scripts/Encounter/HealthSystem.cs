@@ -12,6 +12,12 @@ public class HealthSystem
     public readonly UnityEvent<int> OnHealthChanged = new();
     public readonly UnityEvent OnDeath = new();
 
+    public void ResetHealth(int newMax)
+    {
+        MaxHealth = newMax;
+        Health = MaxHealth;
+    }
+
     public void GainBlock(int amount)
     {
         Block += amount;
@@ -39,6 +45,8 @@ public class HealthSystem
         UseBlock(damage, out int remainingDamage);
 
         UseHealth(remainingDamage);
+        
+        Debug.Log($"taking hit for {damage}");
     }
 
     /// <summary>
@@ -74,5 +82,7 @@ public class HealthSystem
         {
             OnDeath.Invoke();
         }
+        
+        Debug.Log($"health updated to {Health}");
     }
 }
