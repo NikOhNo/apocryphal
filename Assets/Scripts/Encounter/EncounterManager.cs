@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -46,8 +47,21 @@ public class EncounterManager : MonoBehaviour
         CurrentState = newState;
         newState?.OnExit.AddListener(transitionHandler.HandleTransition);
         newState?.OnExit.AddListener(roundCounter.UpdateCounter);
-        newState?.OnExit.AddListener(stateDisplay.UpdateState);
+        stateDisplay.UpdateState(newState.StateType);
         jobRunner.SwitchState(newState);
         newState?.Enter(this);
+    }
+
+    // scuffed way to wait for a certain amount of seconds on anything in this scene
+    // waits for `s` seconds and invokes `callback` when finished
+    public void StartWaitingForSeconds(float s, Action callback) 
+    {
+        StartCoroutine(Wait(s, callback));
+    }
+
+    private IEnumerator Wait(float s, Action callback)
+    {
+        yield return new WaitForSeconds(s);
+        callback?.Invoke();
     }
 }

@@ -10,6 +10,7 @@ public class EnemyTurn : CombatState
 
         // TODO: enemy turn jobs
         
+        Jobs.Enqueue(new WaitForSecondsJob(_encounter, 1)); // woah.
         Jobs.Enqueue(new EndStateJob(Exit)); // FIXME temporary
 
         // Exit();

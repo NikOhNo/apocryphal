@@ -20,11 +20,7 @@ public class JobRunner : MonoBehaviour
         
         if (!_jobRunning)
         {
-            if (_currentJobs.Count > 0)
-            {
-                _jobRunning = true;
-                StartNextJob();
-            }
+            StartNextJob();
         }
     }
 
@@ -32,8 +28,10 @@ public class JobRunner : MonoBehaviour
     {
         if (_currentJobs.Count > 0)
         {
+            _jobRunning = true;
             IStateJob job = _currentJobs.Dequeue();
-            job.OnComplete.AddListener( () => StartNextJob() );
+            job.OnComplete.AddListener(StartNextJob);
+            Debug.Log("Added listener for job " + job);
             job.StartJob();
         }
         else
