@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Health: 99'
+  m_text: 'Health: 0/0'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: -64.15674, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -147,9 +147,9 @@ GameObject:
   - component: {fileID: 803168998614913589}
   - component: {fileID: 3204969714666106610}
   - component: {fileID: 3378904974887107135}
-  - component: {fileID: 6611686563149639954}
+  - component: {fileID: 8925389815721958719}
   m_Layer: 5
-  m_Name: EnemyTest
+  m_Name: EnemyDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -214,7 +214,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6611686563149639954
+--- !u!114 &8925389815721958719
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -223,15 +223,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5269653876110103407}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58828ecd93a1386448c956be078ea15f, type: 3}
+  m_Script: {fileID: 11500000, guid: c1b8b692fd8482347848eae7ef6586b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 20
   _healthText: {fileID: 3277712851287527035}
   _blockText: {fileID: 8089731860876140379}
-  onDeath:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &8762460081720453192
 GameObject:
   m_ObjectHideFlags: 0
@@ -362,7 +358,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: -58.637817, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

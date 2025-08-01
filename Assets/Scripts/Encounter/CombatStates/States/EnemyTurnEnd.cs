@@ -10,6 +10,7 @@ public class EnemyTurnEnd : CombatState
 
         // TODO: Enemy Turn End jobs
         
+        Jobs.Enqueue(new WaitForSecondsJob(encounter, 0.5f));
         Jobs.Enqueue(new EndStateJob(Exit));
 
         // Exit();

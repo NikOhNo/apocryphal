@@ -27,6 +27,8 @@ public class EnemyManager : MonoBehaviour
             Enemy enemyInstance = go.GetComponent<Enemy>();
             _enemies.Add(enemyInstance);
             enemyInstance.onDeath.AddListener(OnEnemyDie);
+            enemyInstance.Initialize(transform.GetComponentInParent<Canvas>());
+            
             EnemyCount += 1; // aurgh
         }
     }

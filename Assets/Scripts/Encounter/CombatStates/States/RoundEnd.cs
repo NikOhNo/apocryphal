@@ -10,6 +10,7 @@ public class RoundEnd : CombatState
 
         // TODO: round end jobs
 
+        Jobs.Enqueue(new WaitForSecondsJob(encounter, 0.5f));
         Jobs.Enqueue(new EndStateJob(Exit));
         
         // Exit();

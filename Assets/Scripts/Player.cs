@@ -1,27 +1,18 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Enemy : MonoBehaviour
+public class Player : MonoBehaviour
 {
     private HealthSystem _healthSystem = new();
-    public UnityEvent<Enemy> onDeath { get; private set; } = new();
     
-    public GameObject displayPrefab;
     
+    public UnityEvent<Player> onDeath { get; private set; } = new();
     public int maxHealth;
     public HealthDisplay healthDisplay; // snet in inspector
 
     void Awake()
     {
         _healthSystem.ResetHealth(maxHealth);
-    }
-
-    public void Initialize(Canvas canvas)
-    {
-        var d = Instantiate(displayPrefab, canvas.transform);
-        Debug.Log(d);
-        healthDisplay = d.GetComponent<HealthDisplay>();
         healthDisplay.SetHealthSystem(_healthSystem);
     }
 
@@ -33,12 +24,11 @@ public class Enemy : MonoBehaviour
     void OnDeath()
     {
         Debug.Log("death");
-        onDeath?.Invoke(this);
+        onDeath.Invoke(this);
     }
 
     public void TakeDamage(int damage)
     {
         this._healthSystem.TakeHit(damage);
     }
-    
 }

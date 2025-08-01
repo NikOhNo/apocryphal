@@ -13,6 +13,7 @@ public class RoundStart : CombatState
         // QueueJobs();
         // PerformNextJob();
         
+        Jobs.Enqueue(new WaitForSecondsJob(encounter, 0.5f));
         Jobs.Enqueue(new EndStateJob(Exit));
     }
 

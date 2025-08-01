@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: EncounterTest
   m_EditorClassIdentifier: 
   enemies:
-  - {fileID: 6611686563149639954, guid: 4733cef35a367894c819f8ee76c85b1c, type: 3}
+  - {fileID: 8075408085128531750, guid: 962f5d67e86a91e4287d9c28bb808304, type: 3}
