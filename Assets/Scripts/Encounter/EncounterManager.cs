@@ -10,6 +10,7 @@ public class EncounterManager : MonoBehaviour
     public StateTransitionHandler transitionHandler;
     public RoundCounter roundCounter;
     public ButtonDisplay genericButton;
+    public StateDisplay stateDisplay;
     
     
     // FIXME extremely temporary :)
@@ -45,6 +46,7 @@ public class EncounterManager : MonoBehaviour
         CurrentState = newState;
         newState?.OnExit.AddListener(transitionHandler.HandleTransition);
         newState?.OnExit.AddListener(roundCounter.UpdateCounter);
+        newState?.OnExit.AddListener(stateDisplay.UpdateState);
         jobRunner.SwitchState(newState);
         newState?.Enter(this);
     }
