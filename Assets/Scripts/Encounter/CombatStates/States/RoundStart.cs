@@ -10,9 +10,12 @@ public class RoundStart : CombatState
     {
         base.Enter(encounter);
 
-        // QueueJobs();
-        // PerformNextJob();
-        
+        QueueJobs();
+    }
+
+    protected virtual void QueueJobs()
+    {
+        Jobs.Enqueue(new DrawCardJob(_encounter));
         Jobs.Enqueue(new EndStateJob(Exit));
     }
 
@@ -24,24 +27,5 @@ public class RoundStart : CombatState
     protected override bool CanExit()
     {
         return Jobs.Count == 0;
-    }
-
-    protected virtual void QueueJobs()
-    {
-        // jobs.enqueue(() => _encounter.DeckSystem.DrawCards(5));...
-    }
-
-    protected virtual void PerformNextJob()
-    {
-        if (Jobs.Count > 0)
-        {
-            IStateJob nextJob = Jobs.Dequeue();
-            nextJob.OnComplete.AddListener( () => PerformNextJob() );
-            nextJob.StartJob();
-        }
-        else
-        {
-            Exit();
-        }
     }
 }

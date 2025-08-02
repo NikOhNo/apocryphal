@@ -9,7 +9,7 @@ public class PlayerTurnEnd : CombatState
         base.Enter(encounter);
 
         // TODO: perform turn end jobs
-
+        Jobs.Enqueue(new ClearHandJob(_encounter));
         Jobs.Enqueue(new EndStateJob(Exit));
         
         // Exit();
