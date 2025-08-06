@@ -13,7 +13,7 @@ public class EndStateJob : IStateJob
         EndTurnCallback = endTurnCallback;
     }
 
-    public void StartJob()
+    public void StartJob(EncounterManager _em)
     {
         Debug.Log("End turn job has started! i am now ending turn.");
         EndTurnCallback?.Invoke();

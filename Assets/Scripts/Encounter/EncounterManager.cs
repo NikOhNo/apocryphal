@@ -21,8 +21,8 @@ public class EncounterManager : MonoBehaviour
     public ButtonDisplay damageEnemyButton;
     
     public JobRunner jobRunner;
-    
     public EnemyManager enemyManager;
+    public CardEffectManager cardEffectManager;
 
     public EncounterData encounterData;
     
@@ -33,6 +33,8 @@ public class EncounterManager : MonoBehaviour
         hand = new(this);
         transitionHandler = new(this);
         jobRunner = new GameObject("JobRunner").AddComponent<JobRunner>(); // haha uhhh okay
+        jobRunner.GetComponent<JobRunner>().encounterManager = this;
+        cardEffectManager = new(this);
     }
 
     private void Start()

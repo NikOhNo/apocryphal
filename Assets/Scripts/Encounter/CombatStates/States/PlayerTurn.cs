@@ -35,7 +35,7 @@ public class PlayerTurn : CombatState
 
     private void AddDamageEnemyJob()
     {
-        Jobs.Enqueue(new LoseHealthJob(_encounter.enemyManager, _encounter.enemyManager.GetRandomEnemy(), 5)); // FIXME
+        Jobs.Enqueue(new DamageRandomEnemyJob(5)); // FIXME add targeting :)
     }
 
     protected override bool CanExit()

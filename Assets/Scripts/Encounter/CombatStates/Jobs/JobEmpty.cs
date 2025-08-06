@@ -6,7 +6,7 @@ public class JobEmpty : IStateJob
 {
     public UnityEvent OnComplete { get; } = new();
 
-    public void StartJob()
+    public void StartJob(EncounterManager _em)
     {
         OnComplete?.Invoke();
     }

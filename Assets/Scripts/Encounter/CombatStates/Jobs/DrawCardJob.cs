@@ -13,17 +13,25 @@ public class DrawCardJob : IStateJob
     HandDisplay handDisplay;
     int amount;
 
-    public DrawCardJob(EncounterManager _em)
+    public DrawCardJob()
     {
-        deck = _em.deck;
-        hand = _em.hand;
-        amount = _em.hand.size;
-        deckDisplay = _em.deckDisplay;
-        handDisplay = _em.handDisplay;
+        // deck = _em.deck;
+        // hand = _em.hand;
+        // amount = _em.hand.size;
+        // deckDisplay = _em.deckDisplay;
+        // handDisplay = _em.handDisplay;
+        
+        // moved all the above Stuff to the StartJob method :)
     }
 
-    public void StartJob()
+    public void StartJob(EncounterManager encounterManager)
     {
+        deck = encounterManager.deck;
+        hand = encounterManager.hand;
+        amount = encounterManager.hand.size;
+        deckDisplay = encounterManager.deckDisplay;
+        handDisplay = encounterManager.handDisplay;
+        
         // TODO: Play animations!
 
         for (int i = 0; i < amount; i++)

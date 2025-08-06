@@ -10,6 +10,8 @@ public class CardEditor : Editor
     SerializedProperty hasMPCostProp;
     SerializedProperty mpCostProp;
     SerializedProperty cardTextProp;
+    
+    SerializedProperty cardEffectsProp;
 
     void OnEnable()
     {
@@ -19,28 +21,34 @@ public class CardEditor : Editor
         hasMPCostProp = serializedObject.FindProperty("hasMPCost");
         mpCostProp = serializedObject.FindProperty("MPCost");
         cardTextProp = serializedObject.FindProperty("description");
+        
+        cardEffectsProp = serializedObject.FindProperty("effects");
     }
 
     public override void OnInspectorGUI()
     {
-        serializedObject.Update();
-
-        EditorGUILayout.PropertyField(cardTextProp);
-
-        EditorGUILayout.PropertyField(spriteProp);
-
-        EditorGUILayout.PropertyField(hasAPCostProp);
-        if (hasAPCostProp.boolValue)
-        {
-            EditorGUILayout.PropertyField(apCostProp);
-        }
-
-        EditorGUILayout.PropertyField(hasMPCostProp);
-        if (hasMPCostProp.boolValue)
-        {
-            EditorGUILayout.PropertyField(mpCostProp);
-        }
-
-        serializedObject.ApplyModifiedProperties();
+        base.OnInspectorGUI();
+        
+        // serializedObject.Update();
+        //
+        // EditorGUILayout.PropertyField(cardTextProp);
+        //
+        // EditorGUILayout.PropertyField(spriteProp);
+        //
+        // EditorGUILayout.PropertyField(hasAPCostProp);
+        // if (hasAPCostProp.boolValue)
+        // {
+        //     EditorGUILayout.PropertyField(apCostProp);
+        // }
+        //
+        // EditorGUILayout.PropertyField(hasMPCostProp);
+        // if (hasMPCostProp.boolValue)
+        // {
+        //     EditorGUILayout.PropertyField(mpCostProp);
+        // }
+        //
+        // EditorGUILayout.PropertyField(cardEffectsProp);
+        //
+        // serializedObject.ApplyModifiedProperties();
     }
 }

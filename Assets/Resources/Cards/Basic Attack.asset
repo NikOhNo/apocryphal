@@ -18,3 +18,12 @@ MonoBehaviour:
   hasMPCost: 0
   MPCost: 0
   description: deal 5 damage
+  effects:
+  - rid: 4194184003010953294
+  references:
+    version: 2
+    RefIds:
+    - rid: 4194184003010953294
+      type: {class: DamageRandomEnemyEffect, ns: , asm: Assembly-CSharp}
+      data:
+        damage: 5
