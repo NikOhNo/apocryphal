@@ -8,6 +8,11 @@ public class PlayerTurn : CombatState
     {
         base.Enter(encounter);
         
+        // for the button that damages the enemy
+        // a problem i can see with this is how is any given attacking card going to interface with the jobRunner to queue a DamageEnemyJob for the current state?
+        // perhaps it has a reference to the encountermanager or something
+        // or we make some static singleton called like JobQueuer or smth
+        // maybe the JobRunner can be that? idk
         _encounter.damageEnemyButton.AddClickListener(AddDamageEnemyJob);
         _encounter.damageEnemyButton.SetText("Deal 5 damage");
         _encounter.damageEnemyButton.Display();
