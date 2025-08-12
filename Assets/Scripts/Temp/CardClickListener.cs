@@ -19,6 +19,7 @@ public class CardClickListener : MonoBehaviour
         }
     }
     
+    // function called by CardDisplay(s) when they're clicked
     public void OnClickCard(PlayCard playCard)
     {
         encounterManager.cardEffectManager.PlayCard(playCard.Card);

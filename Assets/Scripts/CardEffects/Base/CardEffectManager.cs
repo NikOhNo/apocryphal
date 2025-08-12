@@ -14,6 +14,8 @@ public class CardEffectManager
     // (it doesn't destroy the card or anything so be careful)
     public void PlayCard(Card card)
     {
+        Debug.Log($"Playing card {card.name}");
+        
         foreach (CardEffect effect in card.effects)
         {
             List<IStateJob> cardJobs = effect.GetJobs();
