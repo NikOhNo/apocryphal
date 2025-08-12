@@ -1,3 +1,4 @@
+using Scripts.Deck;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,6 +10,10 @@ using UnityEngine.UI;
 public class EncounterManager : MonoBehaviour
 {
     public StateTransitionHandler transitionHandler;
+    public Deck deck;
+    public DeckDisplay deckDisplay;
+    public Hand hand;
+    public HandDisplay handDisplay;
     public RoundCounter roundCounter;
     public ButtonDisplay genericButton;
     public StateDisplay stateDisplay;
@@ -18,8 +23,8 @@ public class EncounterManager : MonoBehaviour
     public ButtonDisplay damageEnemyButton;
     
     public JobRunner jobRunner;
-    
     public EnemyManager enemyManager;
+    public CardEffectManager cardEffectManager;
 
     public EncounterData encounterData;
     
@@ -27,8 +32,17 @@ public class EncounterManager : MonoBehaviour
 
     private void Awake()
     {
+        hand = new(this);
         transitionHandler = new(this);
         jobRunner = new GameObject("JobRunner").AddComponent<JobRunner>(); // haha uhhh okay
+        jobRunner.GetComponent<JobRunner>().encounterManager = this;
+        cardEffectManager = new(this);
+    }
+
+    private void Start()
+    {
+        deck.Initialize();
+        deckDisplay.UpdateDisplay();
     }
 
     public void StartEncounter()

@@ -14,7 +14,7 @@ public class EndStateJob : IStateJob
         EndTurnCallback = endTurnCallback;
     }
 
-    public void StartJob()
+    public void StartJob(EncounterManager _em)
     {
         Debug.Log("End turn job has started! i am now ending turn.");
         // wait one second for debug purposes, (to see if all states are executed)

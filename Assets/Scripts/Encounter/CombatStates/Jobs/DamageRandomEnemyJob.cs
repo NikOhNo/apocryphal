@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class LoseHealthJob : IStateJob
+public class DamageRandomEnemyJob : IStateJob
 {
     public UnityEvent OnComplete { get; } = new();
     
@@ -9,17 +9,16 @@ public class LoseHealthJob : IStateJob
     private EnemyManager _em;
     private int _amount;
 
-    public LoseHealthJob(EnemyManager enemyManager, Enemy target, int amount)
+    public DamageRandomEnemyJob(int amount)
     {
-        this._em = enemyManager;
-        this._target = target;
         this._amount = amount;
     }
     
-    public void StartJob()
+    public void StartJob(EncounterManager _em)
     {
         Debug.Log("Lose health job has started! i am now LOSING HEALTH.");
-        _em.DamageEnemy(_target, _amount);
+        Enemy target = _em.enemyManager.GetRandomEnemy();
+        _em.enemyManager.DamageEnemy(target, _amount);
         OnComplete?.Invoke();
     }
 }
