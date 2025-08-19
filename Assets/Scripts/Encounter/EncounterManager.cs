@@ -18,9 +18,14 @@ public class EncounterManager : MonoBehaviour
     public ButtonDisplay genericButton;
     public StateDisplay stateDisplay;
     
+    public Player player; // ref to player.... good maybe probably
+    
     
     // FIXME extremely temporary :)
+    
     public ButtonDisplay damageEnemyButton;
+    
+    public Button startEncounterButton;
     
     public JobRunner jobRunner;
     public EnemyManager enemyManager;
@@ -41,12 +46,17 @@ public class EncounterManager : MonoBehaviour
 
     private void Start()
     {
+        startEncounterButton.onClick.AddListener(StartEncounter);
+        
         deck.Initialize();
         deckDisplay.UpdateDisplay();
     }
 
     public void StartEncounter()
     {
+        startEncounterButton.onClick.RemoveAllListeners();
+        startEncounterButton.gameObject.SetActive(false);
+        
         SwitchState(new RoundStart());
         enemyManager.Initialize(this, encounterData);
     }

@@ -5,19 +5,17 @@ public class WaitForSecondsJob : IStateJob
 {
     public UnityEvent OnComplete {get;} = new();
     
-    private EncounterManager _encounterManager;
     private float _waitTime;
 
-    public WaitForSecondsJob(EncounterManager encounterManager, float seconds)
+    public WaitForSecondsJob(float seconds)
     {
-        this._encounterManager = encounterManager;
         this._waitTime = seconds;
     }
 
-    public void StartJob()
+    public void StartJob(EncounterManager _em)
     {
         Debug.Log("Starting waiting for seconds job.");
-        _encounterManager.StartWaitingForSeconds(_waitTime, OnTimeout);
+        _em.StartWaitingForSeconds(_waitTime, OnTimeout);
     }
 
     public void OnTimeout()

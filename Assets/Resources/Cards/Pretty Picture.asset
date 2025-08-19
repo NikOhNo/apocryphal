@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 18400bda11a3c8f49880ef44a2333e72, type: 3}
-  m_Name: Big Block
+  m_Name: Pretty Picture
   m_EditorClassIdentifier: 
   sprite: {fileID: 0}
   hasAPCost: 1
-  APCost: 1
+  APCost: 0
   hasMPCost: 0
   MPCost: 0
-  description: Gain 10 Block
+  description: draw 1 card
   effects:
-  - rid: 4194184308184842334
+  - rid: 4194184150590160989
   references:
     version: 2
     RefIds:
-    - rid: 4194184308184842334
-      type: {class: PlayerGainBlockEffect, ns: , asm: Assembly-CSharp}
+    - rid: 4194184150590160989
+      type: {class: DrawCardEffect, ns: , asm: Assembly-CSharp}
       data:
-        block: 10
+        numCardsDrawn: 1

@@ -41,8 +41,6 @@ public class JobRunner : MonoBehaviour
             IStateJob job = _currentJobs.Dequeue();
             job.OnComplete.AddListener(StartNextJob);
             Debug.Log("Added listener for job " + job);
-            job.StartJob();
-            job.OnComplete.AddListener( () => StartNextJob() );
             job.StartJob(encounterManager);
         }
         else

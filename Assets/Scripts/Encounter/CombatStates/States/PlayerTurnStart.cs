@@ -8,7 +8,7 @@ public class PlayerTurnStart : CombatState
     {
         base.Enter(encounter);
 
-        Jobs.Enqueue(new WaitForSecondsJob(encounter, 0.5f));
+        Jobs.Enqueue(new WaitForSecondsJob(0.5f));
         Jobs.Enqueue(new EndStateJob(Exit));
         
         // Exit();

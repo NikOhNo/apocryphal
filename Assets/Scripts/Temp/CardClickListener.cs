@@ -1,11 +1,12 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CardClickListener : MonoBehaviour
 {
     // temporary very verry bad singleton for listening for when cards (buttons) are clicked
     
     public static CardClickListener Instance { get; private set; }
-    [SerializeField] EncounterManager encounterManager;
+    [SerializeField] EncounterManager _encounterManager;
 
     public void Awake()
     {
@@ -19,9 +20,12 @@ public class CardClickListener : MonoBehaviour
         }
     }
     
-    // function called by CardDisplay(s) when they're clicked
+    // function called by CardDisplay(s) when they're clicked. it doesn't do ANY verification on whether the card is legal to be played
     public void OnClickCard(PlayCard playCard)
     {
-        encounterManager.cardEffectManager.PlayCard(playCard.Card);
+        _encounterManager.cardEffectManager.PlayCard(playCard.Card);
+        _encounterManager.hand.Discard(playCard); // discard the card immediately when it's played. consider queueing a DiscardJob for the card instead 
+        _encounterManager.handDisplay.ClearDisplay();
+        _encounterManager.handDisplay.DisplayHand(_encounterManager.hand);
     }
 }

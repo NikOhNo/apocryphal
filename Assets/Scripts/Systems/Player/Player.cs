@@ -31,4 +31,9 @@ public class Player : MonoBehaviour
     {
         this._healthSystem.TakeHit(damage);
     }
+
+    public void AddBlock(int amount)
+    {
+        this._healthSystem.GainBlock(amount);
+    }
 }
