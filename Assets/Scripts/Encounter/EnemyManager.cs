@@ -51,4 +51,24 @@ public class EnemyManager : MonoBehaviour
     {
         return _enemies[Random.Range(0, _enemies.Count)];
     }
+
+    public void OnEnemyTurn()
+    {
+        foreach (Enemy e in _enemies)
+        {
+            e.PerformAction(_encounterManager);
+        }
+        
+        // queueing the job like this should ensure all the enemy attacks went through before we end the state.
+        // assuming enemies' actions also queue jobs
+        _encounterManager.jobRunner.QueueJob(new CallFunctionJob(OnEnemiesDoneAttacking));
+    }
+
+    public void OnEnemiesDoneAttacking()
+    {
+        // assuming the current state is EnemyTurn, we can queue a EndTurnJob that calls the Exit() function on the EncounterManager's CurrentState to exit the end turn state
+        // i'm a huge fan of spaghetti and meatballs
+        _encounterManager.jobRunner.QueueJob(new WaitForSecondsJob(0.5f)); // wait for a moment for debug
+        _encounterManager.jobRunner.QueueJob(new CallFunctionJob(_encounterManager.CurrentState.Exit)); // very dumb i apollochives
+    }
 }

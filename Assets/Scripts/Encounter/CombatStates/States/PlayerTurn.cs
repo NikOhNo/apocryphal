@@ -35,7 +35,7 @@ public class PlayerTurn : CombatState
 
     private void AddEndTurnJob()
     {
-        Jobs.Enqueue(new EndStateJob(Exit)); // fixme temporary etc.
+        Jobs.Enqueue(new CallFunctionJob(Exit)); // fixme temporary etc.
     }
 
     private void AddDamageEnemyJob()

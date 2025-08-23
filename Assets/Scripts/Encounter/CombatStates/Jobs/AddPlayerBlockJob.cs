@@ -10,7 +10,6 @@ public class AddPlayerBlockJob : IStateJob
     
     public UnityEvent OnComplete { get; } = new();
     
-    private EnemyManager _em;
     private int _amount;
 
     public AddPlayerBlockJob(int amount)
@@ -21,7 +20,7 @@ public class AddPlayerBlockJob : IStateJob
     public void StartJob(EncounterManager _em)
     {
         Debug.Log("Add player block job started");
-        _em.player.AddBlock(_amount);
+        _em.player.HealthSystem.GainBlock(_amount);
         OnComplete?.Invoke();
     }
 }

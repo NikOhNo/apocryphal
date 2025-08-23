@@ -20,7 +20,7 @@ public class RoundStart : CombatState
         // PerformNextJob();
         
         Jobs.Enqueue(new WaitForSecondsJob(0.5f));
-        Jobs.Enqueue(new EndStateJob(Exit));
+        Jobs.Enqueue(new CallFunctionJob(Exit));
     }
 
     public override void Exit()

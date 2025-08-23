@@ -21,7 +21,7 @@ public class HealthSystem
     public void GainBlock(int amount)
     {
         Block += amount;
-        OnBlockChanged.Invoke(amount);
+        OnBlockChanged.Invoke(Block);
     }
 
     public void GainHealth(int amount)

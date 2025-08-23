@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -23,6 +24,7 @@ public class CardClickListener : MonoBehaviour
     // function called by CardDisplay(s) when they're clicked. it doesn't do ANY verification on whether the card is legal to be played
     public void OnClickCard(PlayCard playCard)
     {
+        if (_encounterManager.CurrentState.StateType != StateType.PlayerTurn) return; // don't do anything if it's not time for the player to play
         _encounterManager.cardEffectManager.PlayCard(playCard.Card);
         _encounterManager.hand.Discard(playCard); // discard the card immediately when it's played. consider queueing a DiscardJob for the card instead 
         _encounterManager.handDisplay.ClearDisplay();

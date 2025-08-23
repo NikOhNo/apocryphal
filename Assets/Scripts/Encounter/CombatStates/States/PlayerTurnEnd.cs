@@ -12,7 +12,7 @@ public class PlayerTurnEnd : CombatState
         Jobs.Enqueue(new ClearHandJob());
 
         Jobs.Enqueue(new WaitForSecondsJob(0.5f));
-        Jobs.Enqueue(new EndStateJob(Exit));
+        Jobs.Enqueue(new CallFunctionJob(Exit));
         
         // Exit();
     }

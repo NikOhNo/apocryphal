@@ -9,9 +9,10 @@ public class EnemyTurn : CombatState
         base.Enter(encounter);
 
         // TODO: enemy turn jobs
+        encounter.enemyManager.OnEnemyTurn();
         
-        Jobs.Enqueue(new WaitForSecondsJob(0.5f)); // woah.
-        Jobs.Enqueue(new EndStateJob(Exit)); // FIXME temporary
+        // Jobs.Enqueue(new WaitForSecondsJob(0.5f)); // woah.
+        // Jobs.Enqueue(new CallFunctionJob(Exit)); // FIXME temporary
 
         // Exit();
     }
