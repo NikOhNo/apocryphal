@@ -52,6 +52,22 @@ public class EnemyManager : MonoBehaviour
         return _enemies[Random.Range(0, _enemies.Count)];
     }
 
+    public void ClearEnemyBlock(Enemy enemy)
+    {
+        enemy.HealthSystem.ClearBlock();
+    }
+
+    // hook to be called whenever the enemyturnstart state is reached
+    // (the state itslef just calls this function directly)
+    // rn it just clears the enemy block but eventually we could probably call another function on each enemy to handle its specific turnstart behavior
+    public void OnEnemyTurnStart()
+    {
+        foreach (Enemy enemy in _enemies)
+        {
+            ClearEnemyBlock(enemy); 
+        }
+    }
+
     public void OnEnemyTurn()
     {
         foreach (Enemy e in _enemies)

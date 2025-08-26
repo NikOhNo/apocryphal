@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class Enemy : MonoBehaviour
 {
-    private HealthSystem _healthSystem = new();
+    public HealthSystem HealthSystem { get; private set; } = new();
     public UnityEvent<Enemy> onDeath { get; private set; } = new();
     
     public GameObject displayPrefab;
@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour
 
     void Awake()
     {
-        _healthSystem.ResetHealth(maxHealth);
+        HealthSystem.ResetHealth(maxHealth);
     }
 
     public void Initialize(Canvas canvas)
@@ -23,12 +23,12 @@ public class Enemy : MonoBehaviour
         var d = Instantiate(displayPrefab, canvas.transform);
         Debug.Log(d);
         healthDisplay = d.GetComponent<HealthDisplay>();
-        healthDisplay.SetHealthSystem(_healthSystem);
+        healthDisplay.SetHealthSystem(HealthSystem);
     }
 
     void OnEnable()
     {
-        _healthSystem.OnDeath.AddListener(OnDeath);
+        HealthSystem.OnDeath.AddListener(OnDeath);
     }
 
     void OnDeath()
@@ -39,7 +39,7 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        this._healthSystem.TakeHit(damage);
+        this.HealthSystem.TakeHit(damage);
     }
 
     // method for performing the enemy's intent.
