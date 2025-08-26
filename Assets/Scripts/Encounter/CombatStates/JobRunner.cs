@@ -17,10 +17,15 @@ public class JobRunner : MonoBehaviour
 
     // method to just arbitrarily queue a job
     // since the jobrunner is accessible from the encountermanager this means anything w/ a ref to the encountermanager
-    // can just queue any job. useful for and executing card effects and status effects
+    // can just queue any job. useful for executing card effects and status effects
     public void QueueJob(IStateJob job)
     {
         _currentJobs.Enqueue(job);
+    }
+
+    public void QueueImmediate(IStateJob job)
+    {
+        // finish
     }
     
     void Update()

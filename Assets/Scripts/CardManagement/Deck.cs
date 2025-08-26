@@ -74,12 +74,13 @@ namespace Scripts.Deck
 
         public void AddToDeck(PlayCard card)
         {
-            cardsInDeck.Enqueue(card);        
+            cardsInDeck.Enqueue(card);
         }
         
         public void Discard(PlayCard card)
         {
             if (card == null) throw new ArgumentNullException();
+            Debug.Log($"Adding card to discrd: {card.Card.name}");
             cardsInDiscard.Add(card);
         }
     }

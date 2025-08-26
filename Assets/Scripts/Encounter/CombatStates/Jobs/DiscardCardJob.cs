@@ -38,7 +38,7 @@ public class DiscardCardJob : IStateJob
         hand.Discard(cardToDiscard);
 
         deckDisplay.UpdateDisplay();
-        handDisplay.ClearDisplay(); // without this line it stacks the displayed decks atop eachother
+        handDisplay.ClearDisplay(); // without this line it stacks the displayed hands atop eachother
         handDisplay.DisplayHand(hand);
 
         OnComplete.Invoke();

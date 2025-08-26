@@ -8,10 +8,10 @@ public class CardDisplay : MonoBehaviour
     [SerializeField] TMP_Text cardName;
     [SerializeField] TMP_Text cardDescription;
     [SerializeField] TMP_Text damage;
-    
-    private PlayCard _playCard;
-    
-    public UnityEvent<PlayCard> onClickCard;
+
+    public PlayCard PlayCard { get; private set; }
+
+    public UnityEvent<PlayCard, CardDisplay> onClickCard;
 
     public void OnEnable()
     {
@@ -26,13 +26,27 @@ public class CardDisplay : MonoBehaviour
     
     public void DisplayCard(PlayCard playCard)
     {
-        this._playCard = playCard;
+        PlayCard = playCard;
         cardName.text = playCard.Card.name;
         cardDescription.text = playCard.Card.description;
     }
 
+    
+    // methods for setting this card as selected
+    // this is used for the card select interface
+    public void SetSelected()
+    {
+        this.GetComponent<Image>().color = Color.cyan;
+    }
+
+    public void SetUnselected()
+    {
+        this.GetComponent<Image>().color = Color.white;
+    }
+
     private void OnCardClicked()
     {
-        CardClickListener.Instance.OnClickCard(_playCard);
+        // CardClickListener.Instance.OnClickCard(_playCard);
+        onClickCard?.Invoke(PlayCard, this);
     }
 }

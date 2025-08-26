@@ -23,6 +23,8 @@ public class EncounterManager : MonoBehaviour
     
     // FIXME extremely temporary :)
     
+    public CardSelectInterface cardSelector;
+    
     public ButtonDisplay damageEnemyButton;
     
     public Button startEncounterButton;
@@ -50,6 +52,11 @@ public class EncounterManager : MonoBehaviour
         
         deck.Initialize();
         deckDisplay.UpdateDisplay();
+        
+        // connect the onClickCard event of the main HandDisplay to the CardClickListener
+        handDisplay.OnClickCard.AddListener(CardClickListener.Instance.OnClickCard); // TODO fixme do some kind of like verification on card clicking
+        // the reason we're doing it like this instead of just directly calling the function on the CardClickListener is
+        // so that we can have an arbitrary HandDisplay
     }
 
     public void StartEncounter()
@@ -88,4 +95,25 @@ public class EncounterManager : MonoBehaviour
         yield return new WaitForSeconds(s);
         callback?.Invoke();
     }
+
+    public void OpenCardSelector(string title, Action<PlayCard> onCloseCallback)
+    {
+        handDisplay.gameObject.SetActive(false); // stop displaying the main hand
+        cardSelector.gameObject.SetActive(true);
+        cardSelector.SetPrompt(title);
+        cardSelector.onCardSelected.RemoveAllListeners(); // or else bad stuff happens
+        cardSelector.onCardSelected.AddListener(playCard =>
+        {
+            // function to call when the card selector closes
+            // re-display the main hand
+            handDisplay.gameObject.SetActive(true);
+            // stop displaying the card selector
+            cardSelector.gameObject.SetActive(false);
+            // finally call the callback!
+            onCloseCallback(playCard);
+        });
+        cardSelector.UpdateHandDisplay(hand);
+    }
+    
+    
 }

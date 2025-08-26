@@ -34,6 +34,12 @@ public class HealthSystem
         OnHealthChanged.Invoke(Health);
     }
 
+    // typically called at the start of the player's turn, unless certain conditions are met
+    public void ClearBlock()
+    {
+        Block = 0;
+    }
+
     /// <summary>
     /// The health system handles the damage taken using block first, then the health.
     /// </summary>
