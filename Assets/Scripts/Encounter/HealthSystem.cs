@@ -38,6 +38,7 @@ public class HealthSystem
     public void ClearBlock()
     {
         Block = 0;
+        OnBlockChanged.Invoke(0);
     }
 
     /// <summary>

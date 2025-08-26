@@ -8,6 +8,7 @@ public class PlayerTurnStart : CombatState
     {
         base.Enter(encounter);
 
+        Jobs.Enqueue(new ClearPlayerBlockJob());
         Jobs.Enqueue(new WaitForSecondsJob(0.5f));
         Jobs.Enqueue(new CallFunctionJob(Exit));
         
