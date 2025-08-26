@@ -8,15 +8,16 @@ using UnityEngine.UI;
 
 public class EncounterManager : MonoBehaviour
 {
-    public StateTransitionHandler transitionHandler;
-    public Deck deck;
-    public DeckDisplay deckDisplay;
+    public readonly PlayerMPAP PlayerMPAP = new();
+    public CardExecutor cardExecutor;
     public Hand hand;
     public HandDisplay handDisplay;
+    public Deck deck;
+    public DeckDisplay deckDisplay;
     public RoundCounter roundCounter;
     public ButtonDisplay genericButton;
-    
-    
+    public StateTransitionHandler transitionHandler;
+
     // FIXME extremely temporary :)
     public ButtonDisplay damageEnemyButton;
     
@@ -32,6 +33,7 @@ public class EncounterManager : MonoBehaviour
     {
         hand = new(this);
         transitionHandler = new(this);
+        cardExecutor = new(this);
         jobRunner = new GameObject("JobRunner").AddComponent<JobRunner>(); // haha uhhh okay
     }
 

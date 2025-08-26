@@ -17,6 +17,7 @@ public class HandDisplay : MonoBehaviour
         {
             CardDisplay newCardDisplay = Instantiate(cardDisplayPrefab, this.transform).GetComponent<CardDisplay>();
             newCardDisplay.DisplayCard(card);
+            //newCardDisplay.OnDragTopHalf.AddListener(cardValidator.ValidateCard);
             cardDisplays.Add(newCardDisplay);
         }
     }

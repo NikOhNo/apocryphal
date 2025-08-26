@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 4935951402243590630}
   - component: {fileID: 8661764619017326181}
   - component: {fileID: 86034415122964115}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: PlayCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
