@@ -34,7 +34,10 @@ public class EncounterManager : MonoBehaviour
     public JobRunner jobRunner;
     public EnemyManager enemyManager;
     public CardEffectManager cardEffectManager;
-
+    
+    public DragHandler dragHandler;
+    
+    // data for the encounter, containing its enemies and such
     public EncounterData encounterData;
     
     public ICombatState CurrentState { get; private set; }
@@ -56,7 +59,7 @@ public class EncounterManager : MonoBehaviour
         deckDisplay.UpdateDisplay();
         
         // connect the onClickCard event of the main HandDisplay to the CardClickListener
-        //handDisplay.OnClickCard.AddListener(CardClickListener.Instance.OnClickCard); // TODO fixme do some kind of like verification on card clicking
+        dragHandler.OnPlayCard.AddListener(CardClickListener.Instance.OnClickCard); // TODO fixme do some kind of like verification on card clicking
         // the reason we're doing it like this instead of just directly calling the function on the CardClickListener is
         // so that we can have an arbitrary HandDisplay
     }

@@ -17,7 +17,7 @@ MonoBehaviour:
   APCost: 1
   hasMPCost: 0
   MPCost: 0
-  description: deal 5 damage
+  description: Deal 5 damage
   effects:
   - rid: 4194184003010953294
   references:

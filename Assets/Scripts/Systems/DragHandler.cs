@@ -2,6 +2,7 @@ using Mono.Cecil.Cil;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -14,6 +15,9 @@ public class DragHandler : MonoBehaviour
     Canvas canvas;
     GraphicRaycaster raycaster;
     private Vector2 dragOffset;
+    
+    public UnityEvent<PlayCard, CardDisplay> OnPlayCard; // invoked when a card is Supposed to be played.
+                                                         // might want to invoke it with more parameters (e.g. the target if it's a targeted card, etc.)
 
     private void Start()
     {
@@ -84,7 +88,7 @@ public class DragHandler : MonoBehaviour
         {
             if (Mouse.current.position.ReadValue().y > Screen.height / 2)
             {
-                Debug.Log("Play card!");
+                OnPlayCard.Invoke(dragCard.PlayCard, dragCard);
             }
 
             dragCard.transform.SetParent(dragCardParent, false);

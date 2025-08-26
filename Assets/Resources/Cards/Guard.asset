@@ -17,7 +17,7 @@ MonoBehaviour:
   APCost: 1
   hasMPCost: 0
   MPCost: 0
-  description: Gain 10 Block
+  description: Gain 5 Block
   effects:
   - rid: 4194184308184842334
   references:
@@ -26,4 +26,4 @@ MonoBehaviour:
     - rid: 4194184308184842334
       type: {class: PlayerGainBlockEffect, ns: , asm: Assembly-CSharp}
       data:
-        block: 10
+        block: 5

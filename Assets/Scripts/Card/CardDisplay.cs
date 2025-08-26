@@ -11,7 +11,7 @@ public class CardDisplay : MonoBehaviour
     [SerializeField] TMP_Text cardDescription;
     [SerializeField] TMP_Text damage;
 
-    private PlayCard playCard;
+    public PlayCard PlayCard { get; private set;}
     private RectTransform rectTransform;
     private Canvas canvas;
     private Transform originalParent;
@@ -38,7 +38,7 @@ public class CardDisplay : MonoBehaviour
 
     public void DisplayCard(PlayCard playCard)
     {
-        this.playCard = playCard;
+        PlayCard = playCard;
         cardName.text = playCard.Card.name;
         cardDescription.text = playCard.Card.description;
     }

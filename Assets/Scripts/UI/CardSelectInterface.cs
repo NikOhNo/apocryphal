@@ -6,10 +6,10 @@ using UnityEngine.UI;
 public class CardSelectInterface : MonoBehaviour
 {
     public EncounterManager encounterManager; 
-    public HandDisplay handDisplay;
+    public ClickableHandDisplay handDisplay;
     
     public TextMeshProUGUI promptText;
-    public CardDisplay selectedCard = null;
+    public ClickableCardDisplay selectedCard = null;
     public Button confirmButton;
     
     public UnityEvent<PlayCard> onCardSelected;
@@ -27,16 +27,16 @@ public class CardSelectInterface : MonoBehaviour
         confirmButton.onClick.AddListener(ConfirmSelection);
     }
 
-    void SelectCard(PlayCard playCard, CardDisplay cd)
+    void SelectCard(ClickableCardDisplay cd)
     {
-        //if (selectedCard != null) selectedCard.SetUnselected();
-        //selectedCard = cd;
-        //selectedCard.SetSelected();
+        if (selectedCard != null) selectedCard.SetSelected(false);
+        selectedCard = cd;
+        selectedCard.SetSelected(true);
     }
 
     void ConfirmSelection()
     {
-        //onCardSelected?.Invoke(selectedCard.PlayCard);
+        onCardSelected?.Invoke(selectedCard.PlayCard);
     }
 
     public void UpdateHandDisplay(Hand hand)
