@@ -10,7 +10,6 @@ using UnityEngine.UI;
 public class EncounterManager : MonoBehaviour
 {
     public readonly PlayerMPAP PlayerMPAP = new();
-    public CardExecutor cardExecutor;
     public Hand hand;
     public HandDisplay handDisplay;
     public Deck deck;
@@ -44,7 +43,6 @@ public class EncounterManager : MonoBehaviour
     {
         hand = new(this);
         transitionHandler = new(this);
-        cardExecutor = new(this);
         jobRunner = new GameObject("JobRunner").AddComponent<JobRunner>(); // haha uhhh okay
         jobRunner.GetComponent<JobRunner>().encounterManager = this;
         cardEffectManager = new(this);
@@ -58,7 +56,7 @@ public class EncounterManager : MonoBehaviour
         deckDisplay.UpdateDisplay();
         
         // connect the onClickCard event of the main HandDisplay to the CardClickListener
-        handDisplay.OnClickCard.AddListener(CardClickListener.Instance.OnClickCard); // TODO fixme do some kind of like verification on card clicking
+        //handDisplay.OnClickCard.AddListener(CardClickListener.Instance.OnClickCard); // TODO fixme do some kind of like verification on card clicking
         // the reason we're doing it like this instead of just directly calling the function on the CardClickListener is
         // so that we can have an arbitrary HandDisplay
     }

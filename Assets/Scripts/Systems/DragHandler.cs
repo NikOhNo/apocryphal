@@ -82,6 +82,11 @@ public class DragHandler : MonoBehaviour
 
         if (dragCard != null)
         {
+            if (Mouse.current.position.ReadValue().y > Screen.height / 2)
+            {
+                Debug.Log("Play card!");
+            }
+
             dragCard.transform.SetParent(dragCardParent, false);
             dragCard = null;
         }
