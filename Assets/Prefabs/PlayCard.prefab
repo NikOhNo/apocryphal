@@ -275,6 +275,9 @@ MonoBehaviour:
   cardName: {fileID: 2324047895989393228}
   cardDescription: {fileID: 4145245058924287347}
   damage: {fileID: 5730915723384710857}
+  onClickCard:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2916814565695077044
 GameObject:
   m_ObjectHideFlags: 0

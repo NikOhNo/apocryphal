@@ -10,7 +10,11 @@ public class EnemyTurnStart : CombatState
 
         // TODO: perform enemy turn start jobs
         
-        Jobs.Enqueue(new EndStateJob(Exit));
+        // tell enemies that their turn is starting...
+        encounter.enemyManager.OnEnemyTurnStart();
+        
+        Jobs.Enqueue(new WaitForSecondsJob(0.5f));
+        Jobs.Enqueue(new CallFunctionJob(Exit));
 
         // Exit();
     }

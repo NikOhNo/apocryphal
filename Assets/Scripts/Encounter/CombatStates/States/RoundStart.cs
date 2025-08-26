@@ -15,8 +15,12 @@ public class RoundStart : CombatState
 
     protected virtual void QueueJobs()
     {
-        Jobs.Enqueue(new DrawCardJob(_encounter));
-        Jobs.Enqueue(new EndStateJob(Exit));
+        Jobs.Enqueue(new DrawCardJob(_encounter.hand.size));
+        // QueueJobs();
+        // PerformNextJob();
+        
+        Jobs.Enqueue(new WaitForSecondsJob(0.5f));
+        Jobs.Enqueue(new CallFunctionJob(Exit));
     }
 
     public override void Exit()

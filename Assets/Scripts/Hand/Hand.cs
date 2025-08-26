@@ -18,6 +18,12 @@ public class Hand
         cards.Add(card);
     }
 
+    public void Discard(PlayCard card)
+    {
+        _encounter.deck.Discard(card);
+        cards.Remove(card);
+    }
+
     public void DiscardHand()
     {
         foreach (var card in cards)

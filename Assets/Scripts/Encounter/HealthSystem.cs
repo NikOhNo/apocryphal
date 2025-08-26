@@ -21,7 +21,7 @@ public class HealthSystem
     public void GainBlock(int amount)
     {
         Block += amount;
-        OnBlockChanged.Invoke(amount);
+        OnBlockChanged.Invoke(Block);
     }
 
     public void GainHealth(int amount)
@@ -32,6 +32,13 @@ public class HealthSystem
             Health = MaxHealth;
         }
         OnHealthChanged.Invoke(Health);
+    }
+
+    // typically called at the start of the player's turn, unless certain conditions are met
+    public void ClearBlock()
+    {
+        Block = 0;
+        OnBlockChanged.Invoke(0);
     }
 
     /// <summary>

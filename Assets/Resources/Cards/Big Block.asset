@@ -17,4 +17,13 @@ MonoBehaviour:
   APCost: 1
   hasMPCost: 0
   MPCost: 0
-  cardText: Deal 1 damage
+  description: Gain 10 Block
+  effects:
+  - rid: 4194184308184842334
+  references:
+    version: 2
+    RefIds:
+    - rid: 4194184308184842334
+      type: {class: PlayerGainBlockEffect, ns: , asm: Assembly-CSharp}
+      data:
+        block: 10
