@@ -17,6 +17,7 @@ public class SaveFile
     public string lastScene;
 
     //-- Player Data
+    public Dictionary<string, int> deckCardCounts;
 
     //-- Helper Functions
     public void UpdateSaveMetadata()

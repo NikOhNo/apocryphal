@@ -1,7 +1,8 @@
-namespace Scripts.Deck
+ namespace Scripts.Deck
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using UnityEngine;
 
@@ -13,23 +14,29 @@ namespace Scripts.Deck
         [SerializeField] public readonly Queue<PlayCard> cardsInDeck = new();
         public readonly List<PlayCard> cardsInDiscard = new();
 
-        readonly string cardDataPath = "Cards";
+        readonly string cardDirectory = "Cards";
+
+        SaveFile saveFile => SaveManager.LoadSaves()[0];
 
         public void Initialize()
         {
-            GatherCards();
+            CreatePlayCards();
             ShuffleCards();
         }
 
-        protected void GatherCards()
+        protected void CreatePlayCards()
         {
-            List<Card> cards = Resources.LoadAll<Card>(cardDataPath).ToList();
-            foreach (var card in cards)
+            List<Card> cards = Resources.LoadAll<Card>(cardDirectory).ToList();
+            foreach (var kvp in saveFile.deckCardCounts)
             {
-                PlayCard playCard = new();
-                playCard.Initialize(card);
+                for (int i = 0; i < kvp.Value; i++)
+                {
+                    PlayCard playCard = new();
+                    string cardDataPath = Path.Combine(cardDirectory, kvp.Key);
+                    playCard.Initialize(Resources.Load<Card>(cardDataPath));
 
-                cardsInDeck.Enqueue(playCard);
+                    cardsInDeck.Enqueue(playCard);
+                }
             }
             Debug.Log($"deck size is {cardsInDeck.Count}");
         }
