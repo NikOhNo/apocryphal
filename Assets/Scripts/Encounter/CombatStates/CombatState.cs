@@ -12,14 +12,14 @@ public abstract class CombatState : ICombatState
 
     public virtual void Enter(EncounterManager encounter)
     {
-        Debug.Log($"{GetType().Name} entered");
+        // Debug.Log($"{GetType().Name} entered");
         
         this._encounter = encounter;
     }
 
     public virtual void Exit()
     {
-        Debug.Log($"{GetType().Name} exited");
+        // Debug.Log($"{GetType().Name} exited");
 
         OnExit.Invoke(StateType);
         OnExit.RemoveAllListeners();

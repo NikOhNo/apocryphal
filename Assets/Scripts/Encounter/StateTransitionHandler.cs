@@ -14,6 +14,9 @@ public class StateTransitionHandler
     {
         switch (currState)
         {
+            case StateType.EncounterStart:
+                _encounter.SwitchState(new RoundStart());
+                break;
             case StateType.RoundStart:
                 _encounter.SwitchState(new PlayerTurnStart());
                 break;

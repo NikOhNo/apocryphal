@@ -17,8 +17,7 @@ public class DamageRandomEnemyJob : IStateJob
     public void StartJob(EncounterManager _em)
     {
         Debug.Log("Lose health job has started! i am now LOSING HEALTH.");
-        Enemy target = _em.enemyManager.GetRandomEnemy();
-        _em.enemyManager.DamageEnemy(target, _amount);
+        _em.enemyManager.DamageEnemy(EnemyManager.EnemyTargetMode.Random, _amount);
         OnComplete?.Invoke();
     }
 }

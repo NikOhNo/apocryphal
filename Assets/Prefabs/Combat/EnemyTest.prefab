@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4218375644435166352}
   - component: {fileID: 8075408085128531750}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: EnemyTest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,3 +47,5 @@ MonoBehaviour:
   displayPrefab: {fileID: 5269653876110103407, guid: 4733cef35a367894c819f8ee76c85b1c, type: 3}
   maxHealth: 20
   healthDisplay: {fileID: 0}
+  intentDisplay: {fileID: 0}
+  behavior: {fileID: 11400000, guid: a08c147ab5f1a60408d9471d9db875a6, type: 2}

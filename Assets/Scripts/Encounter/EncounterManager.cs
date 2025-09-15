@@ -27,8 +27,6 @@ public class EncounterManager : MonoBehaviour
     
     public CardSelectInterface cardSelector;
     
-    public ButtonDisplay damageEnemyButton;
-    
     public Button startEncounterButton;
     
     public JobRunner jobRunner;
@@ -41,6 +39,8 @@ public class EncounterManager : MonoBehaviour
     public EncounterData encounterData;
     
     public ICombatState CurrentState { get; private set; }
+    
+    public UnityEvent<ICombatState> OnStateChange; // event invoked when the combat changes state :D 
 
     private void Awake()
     {
@@ -69,8 +69,8 @@ public class EncounterManager : MonoBehaviour
         startEncounterButton.onClick.RemoveAllListeners();
         startEncounterButton.gameObject.SetActive(false);
         
-        SwitchState(new RoundStart());
-        enemyManager.Initialize(this, encounterData);
+        enemyManager.Initialize(this, encounterData); // initialize enemies before the round starts so the enemymanager listens for the roundstart 
+        SwitchState(new EncounterStart());
     }
 
     public void EndEncounter()
@@ -83,8 +83,9 @@ public class EncounterManager : MonoBehaviour
         CurrentState = newState;
         newState?.OnExit.AddListener(transitionHandler.HandleTransition);
         newState?.OnExit.AddListener(roundCounter.UpdateCounter);
-        stateDisplay.UpdateState(newState.StateType);
+        stateDisplay.UpdateState(newState.StateType); // update display, this is here for debug purposes only!
         jobRunner.SwitchState(newState);
+        OnStateChange?.Invoke(newState); // tell everyone else that the state changed!
         newState?.Enter(this);
     }
 

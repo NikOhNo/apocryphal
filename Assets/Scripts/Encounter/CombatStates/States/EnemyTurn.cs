@@ -9,7 +9,7 @@ public class EnemyTurn : CombatState
         base.Enter(encounter);
 
         // TODO: enemy turn jobs
-        encounter.enemyManager.OnEnemyTurn();
+        // encounter.enemyManager.OnEnemyTurn(); // don't do this it's bad :) well it's not bad it's just not scalable
         
         // Jobs.Enqueue(new WaitForSecondsJob(0.5f)); // woah.
         // Jobs.Enqueue(new CallFunctionJob(Exit)); // FIXME temporary

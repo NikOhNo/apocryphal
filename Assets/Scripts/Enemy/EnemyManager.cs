@@ -1,12 +1,23 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    // given probably like an EncounterData object or something
-    // create the enemies associated with this encounter
-    // for now just give it an enemy prefab
+    // FIXME AAAAHHHHHH this is the targeting mode for card/enemymove effects to use when calling methods on this object
+    // currently using this because cards cannot target enemies at the moment so this is how it has to be
+    // NOTE: i have no idea how cards targeting enemies is going to work 👍
     
+    // first targets the enemy in the very first slot
+    // all targets all enemies (good luck with this one)
+    // random targets a random enemy
+    public enum EnemyTargetMode
+    {
+        First,
+        All,
+        Random
+    } 
+
     private EncounterManager _encounterManager;
     
     [SerializeField] private List<Enemy> _enemies = new();
@@ -16,7 +27,24 @@ public class EnemyManager : MonoBehaviour
     public void Initialize(EncounterManager encounterManager, EncounterData encounterData)
     {
         _encounterManager = encounterManager;
+        _encounterManager.OnStateChange.AddListener(OnCombatStateChanged);
         CreateEnemies(encounterData);
+    }
+
+    private void OnCombatStateChanged(ICombatState combatState)
+    {
+        switch (combatState.StateType)
+        {
+            case StateType.EnemyTurnStart:
+                OnEnemyTurnStart();
+                break;
+            case StateType.EnemyTurn:
+                OnEnemyTurn();
+                break;
+            case StateType.RoundStart:
+                OnRoundStart();
+                break;
+        }
     }
     
     public void CreateEnemies(EncounterData data)
@@ -33,12 +61,32 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-    public void DamageEnemy(Enemy e, int damage)
+    public void DamageEnemy(EnemyTargetMode mode, int damage)
     {
         Debug.Log("attempting to damage enemy");
-        if (_enemies.Contains(e))
+        if (mode == EnemyTargetMode.First)
         {
-            e.TakeDamage(damage);
+            _enemies.First().HealthSystem.TakeHit(damage);
+        }
+        else if (mode == EnemyTargetMode.Random)
+        {
+            GetRandomEnemy().HealthSystem.TakeHit(damage);
+        }
+        else // mode is All
+        {
+            foreach (Enemy e in _enemies)
+            {
+                e.HealthSystem.TakeHit(damage);
+            }
+        }
+    }
+
+    public void AddEnemyBlock(EnemyTargetMode mode, int block)
+    {
+        Debug.Log("Adding block to enemy hello");
+        if (mode == EnemyTargetMode.First)
+        {
+            _enemies.First().HealthSystem.GainBlock(block);
         }
     }
 
@@ -62,9 +110,9 @@ public class EnemyManager : MonoBehaviour
     // rn it just clears the enemy block but eventually we could probably call another function on each enemy to handle its specific turnstart behavior
     public void OnEnemyTurnStart()
     {
-        foreach (Enemy enemy in _enemies)
+        foreach (Enemy e in _enemies)
         {
-            ClearEnemyBlock(enemy); 
+            ClearEnemyBlock(e); 
         }
     }
 
@@ -78,6 +126,16 @@ public class EnemyManager : MonoBehaviour
         // queueing the job like this should ensure all the enemy attacks went through before we end the state.
         // assuming enemies' actions also queue jobs
         _encounterManager.jobRunner.QueueJob(new CallFunctionJob(OnEnemiesDoneAttacking));
+    }
+
+    public void OnRoundStart()
+    {
+        Debug.Log("ROUND STARTED");
+        foreach (Enemy e in _enemies)
+        {
+            // compute intent at the start of the round
+            e.OnRoundStart(_encounterManager);
+        }
     }
 
     public void OnEnemiesDoneAttacking()

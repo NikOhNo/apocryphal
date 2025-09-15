@@ -5,6 +5,7 @@ using UnityEngine.Events;
 
 public class Enemy : MonoBehaviour
 {
+    // damage and stuff shall be dealt directly by accessing the healthsystem. same with the player
     public HealthSystem HealthSystem { get; private set; } = new();
     public UnityEvent<Enemy> onDeath { get; private set; } = new();
     
@@ -12,10 +13,22 @@ public class Enemy : MonoBehaviour
     
     public int maxHealth;
     public HealthDisplay healthDisplay; // snet in inspector
+    public IntentDisplay intentDisplay; // also snet in insnector
+    
+    [SerializeField] private EnemyBehavior behavior; // SET ME IN THE INSPECTOR PLEEAASEEEEE
 
     void Awake()
     {
         HealthSystem.ResetHealth(maxHealth);
+        
+        // if (initialMove != null)
+        // {
+        //     // probably fine to not do this
+        // }
+        // else
+        // {
+        //     Debug.LogError($"Initial move for enemy {this.name} not set! this enemy's behavior will probably break");
+        // }
     }
 
     public void Initialize(Canvas canvas)
@@ -24,6 +37,7 @@ public class Enemy : MonoBehaviour
         Debug.Log(d);
         healthDisplay = d.GetComponent<HealthDisplay>();
         healthDisplay.SetHealthSystem(HealthSystem);
+        intentDisplay = d.GetComponent<IntentDisplay>();
     }
 
     void OnEnable()
@@ -37,9 +51,11 @@ public class Enemy : MonoBehaviour
         onDeath?.Invoke(this);
     }
 
-    public void TakeDamage(int damage)
+    // method for selecting intent
+    public void OnRoundStart(EncounterManager em)
     {
-        this.HealthSystem.TakeHit(damage);
+        behavior.SelectIntent(); // TODO: add parameters/conditions to move selection function!
+        intentDisplay.ChangeIntent(behavior.Intent.moveType); // fuck it just call it here
     }
 
     // method for performing the enemy's intent.
@@ -47,11 +63,16 @@ public class Enemy : MonoBehaviour
     // called by the enemymanager when it's this enemy's turn
     public void PerformAction(EncounterManager em)
     {
-        // just damage player for 5 every turn. yeah. this sucks.
-        em.jobRunner.QueueJob(new DamagePlayerJob(5));
-        StartCoroutine(DoAttackAnimation());
+        behavior.ExecuteIntent(em);
+
+        if (behavior.Intent.moveType == EnemyMove.MoveType.Attack) // only do attack animation the move is an attack move
+        {
+            StartCoroutine(DoAttackAnimation());
+        }
     }
 
+    
+    // called if the action the enemy is going to perform is an attack
     public IEnumerator DoAttackAnimation()
     {
         // interpolate forward x units and then backward x units
