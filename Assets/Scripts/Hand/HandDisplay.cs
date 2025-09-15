@@ -38,4 +38,22 @@ public class HandDisplay : MonoBehaviour
 
         cardDisplays.Clear();
     }
+
+    public void DetachCard(CardDisplay card)
+    {
+        if (cardDisplays.Contains(card))
+        {
+            cardDisplays.Remove(card);
+            card.transform.SetParent(GetComponentInParent<Canvas>().transform, true);
+        }
+    }
+
+    public void AttachCard(CardDisplay card)
+    { 
+        if (!cardDisplays.Contains(card))    // dont add the same display twice
+        {
+            cardDisplays.Add(card);
+            card.transform.parent = this.transform;
+        }
+    }
 }

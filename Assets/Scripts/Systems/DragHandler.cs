@@ -10,6 +10,7 @@ using static UnityEngine.InputSystem.InputAction;
 
 public class DragHandler : MonoBehaviour
 {
+    [SerializeField] HandDisplay handDisplay;
     CardDisplay dragCard;
     Transform dragCardParent;
     Canvas canvas;
@@ -25,7 +26,7 @@ public class DragHandler : MonoBehaviour
         raycaster = GetComponentInParent<GraphicRaycaster>();
     }
 
-    public void OnBeginDrag(InputAction.CallbackContext context)
+    public void OnBeginDrag(CallbackContext context)
     {
         if (!context.performed) return;
 
@@ -43,8 +44,7 @@ public class DragHandler : MonoBehaviour
             if (cardDisplay != null)
             {
                 dragCard = cardDisplay;
-                dragCardParent = dragCard.transform.parent;
-                dragCard.transform.SetParent(canvas.transform, true);
+                handDisplay.DetachCard(dragCard);
 
                 // Calculate drag offset
                 RectTransform cardRect = dragCard.GetComponent<RectTransform>();
@@ -63,7 +63,7 @@ public class DragHandler : MonoBehaviour
     }
 
 
-    public void OnDrag(InputAction.CallbackContext context)
+    public void OnDrag(CallbackContext context)
     {
         if (dragCard == null) return;
 
@@ -90,8 +90,11 @@ public class DragHandler : MonoBehaviour
             {
                 OnPlayCard.Invoke(dragCard.PlayCard, dragCard);
             }
+            else
+            {
+                handDisplay.AttachCard(dragCard);
+            }
 
-            dragCard.transform.SetParent(dragCardParent, false);
             dragCard = null;
         }
     }
