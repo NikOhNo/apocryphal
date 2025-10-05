@@ -25,7 +25,7 @@ public class CardClickListener : MonoBehaviour
     public void OnClickCard(PlayCard playCard, CardDisplay cd)
     {
         if (_encounterManager.CurrentState.StateType != StateType.PlayerTurn) return; // don't do anything if it's not time for the player to play
-        _encounterManager.cardEffectManager.PlayCard(playCard.Card);
+        _encounterManager.cardEffectManager.PlayCard(playCard);
         _encounterManager.hand.Discard(playCard); // discard the card immediately when it's played. consider queueing a DiscardJob for the card instead 
         Destroy(cd);
         _encounterManager.handDisplay.ClearDisplay();

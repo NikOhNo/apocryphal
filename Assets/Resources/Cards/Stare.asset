@@ -18,7 +18,11 @@ MonoBehaviour:
   hasMPCost: 0
   MPCost: 0
   description: Scry the target. Seal this card.
-  effects: []
+  effects:
+  - rid: 7437357351403520000
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 7437357351403520000
+      type: {class: SealCardEffect, ns: , asm: Assembly-CSharp}
+      data: 

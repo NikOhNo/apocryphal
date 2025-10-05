@@ -1,4 +1,4 @@
- namespace Scripts.Deck
+namespace Scripts.Deck
 {
     using System;
     using System.Collections.Generic;
@@ -11,8 +11,9 @@
         public List<PlayCard> AllCards => cardsInDeck.Concat(cardsInDiscard).ToList();
         public bool DeckEmpty => cardsInDeck.Count == 0;
 
-        [SerializeField] public readonly Queue<PlayCard> cardsInDeck = new();
+        public readonly Queue<PlayCard> cardsInDeck = new();
         public readonly List<PlayCard> cardsInDiscard = new();
+        public readonly List<PlayCard> cardsInSeal = new();
 
         readonly string cardDirectory = "Cards";
 
@@ -87,8 +88,17 @@
         public void Discard(PlayCard card)
         {
             if (card == null) throw new ArgumentNullException();
-            Debug.Log($"Adding card to discrd: {card.Card.name}");
+            if (cardsInSeal.Contains(card) || card.isSealed) return; // dont discard & recycle cards that are sealed
+            Debug.Log($"Adding card to discard: {card.Card.name}");
             cardsInDiscard.Add(card);
+        }
+
+        public void Seal(PlayCard card)
+        {
+            if (card == null) throw new ArgumentNullException();
+            Debug.Log($"Adding card to seal: {card.Card.name}");
+            card.isSealed = true;
+            cardsInSeal.Add(card);
         }
     }
 }
