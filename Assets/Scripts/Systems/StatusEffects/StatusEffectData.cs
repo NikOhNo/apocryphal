@@ -13,9 +13,9 @@ public class StatusEffectData : ScriptableObject
     
     public Texture icon;
     
-    [SR, SerializeReference] public StatusEffect effect; 
+    //[SR, SerializeReference] public StatusEffect effect; 
     
-    public List<PhaseEffect> phaseEffects; // effects that are run on a certain phase
+    [SR, SerializeReference] public List<PhaseEffect> phaseEffects; // effects that are run on a certain phase
     
     // TODO add triggerEffects which are run on certain conditions
     

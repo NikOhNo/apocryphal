@@ -15,7 +15,8 @@ public class EncounterManager : MonoBehaviour
     public Deck deck;
     public DeckDisplay deckDisplay;
     public RoundCounter roundCounter;
-    public ButtonDisplay genericButton;
+    public ButtonDisplay endTurnButton;
+    public ButtonDisplay addStatusButton;
     public StateDisplay stateDisplay;
     
     public Player player; // ref to player.... good maybe probably

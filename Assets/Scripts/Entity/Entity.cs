@@ -10,6 +10,8 @@ public class Entity : MonoBehaviour
     public int maxHealth;
     public HealthDisplay healthDisplay; // snet in inspector
     public StatusDisplay statusDisplay;
+
+    [SerializeField] private EncounterManager _encounterManager; // BAD PRACTICE but set this in the inspector for fun
     
     void Awake()
     {
@@ -27,11 +29,34 @@ public class Entity : MonoBehaviour
     void OnEnable()
     {
         HealthSystem.OnDeath.AddListener(OnHealthSystemDeath);
+        if (_encounterManager != null)
+        {
+            _encounterManager.OnStateChange.AddListener(OnCombatState);
+        }
+    }
+
+    public void OnCombatState(ICombatState state)
+    {
+        StatusManager.OnEncounterState(state.StateType, _encounterManager);
     }
 
     void OnHealthSystemDeath()
     {
         Debug.Log("death");
         OnDeath.Invoke(this);
+    }
+
+    public void SetEncounter(EncounterManager em)
+    {
+        this._encounterManager = em;
+        _encounterManager.OnStateChange.AddListener(OnCombatState);
+    }
+
+    public void OnDisable()
+    {
+        if (_encounterManager != null)
+        {
+            _encounterManager.OnStateChange.RemoveListener(OnCombatState);
+        }
     }
 }

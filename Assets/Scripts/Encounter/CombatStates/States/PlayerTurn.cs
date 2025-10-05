@@ -8,15 +8,22 @@ public class PlayerTurn : CombatState
     {
         base.Enter(encounter);
 
-        _encounter.genericButton.AddClickListener(AddEndTurnJob);
-        _encounter.genericButton.SetText("End Turn");
-        _encounter.genericButton.Display();
+        _encounter.endTurnButton.AddClickListener(AddEndTurnJob);
+        _encounter.endTurnButton.SetText("End Turn");
+        _encounter.endTurnButton.Display();
+
+        _encounter.addStatusButton.AddClickListener(AddStatusJob);
+        _encounter.addStatusButton.SetText("add dummy status");
+        _encounter.addStatusButton.Display();
     }
 
     public override void Exit()
     {
-        _encounter.genericButton.ClearDisplay();
-        _encounter.genericButton.HideDisplay();
+        _encounter.endTurnButton.ClearDisplay();
+        _encounter.endTurnButton.HideDisplay();
+
+        _encounter.addStatusButton.ClearDisplay();
+        _encounter.addStatusButton.HideDisplay();
 
         base.Exit();
     }
@@ -29,6 +36,11 @@ public class PlayerTurn : CombatState
     private void AddDamageEnemyJob()
     {
         Jobs.Enqueue(new DamageRandomEnemyJob(5)); // FIXME add targeting :)
+    }
+
+    private void AddStatusJob()
+    {
+        Jobs.Enqueue(new ApplyStatusJob(1)); // always applies burning rn!
     }
 
     protected override bool CanExit()

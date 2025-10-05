@@ -10,23 +10,35 @@ public class StatusEffect
     
     public List<PhaseEffect> phaseEffects = new List<PhaseEffect>();
     
-    public StatusManager.StatusEffectType StatusType { get; protected set; }
+    public StatusManager.StatusEffectType StatusType { get; set; }
     
     public UnityEvent expire = new UnityEvent();
     
     public bool stackable;
     public int maxStacks;
+
+    public StatusEffect(StatusEffectData data)
+    {
+        phaseEffects = data.phaseEffects;
+        stackable = data.stackable;
+        maxStacks = data.maxStacks;
+    }
     
     // call when entering a state.
     // inheritors should define this method with the effects they want to perform for each state e.g. doing damage at the end of the player's turn
     // this allows effects to do different things at different parts of the combat
-    public void OnPhase(StateType stateType)
+    public void OnPhase(StateType stateType, EncounterManager em)
     {
         foreach (var phaseEffect in phaseEffects)
         {
             if (stateType == phaseEffect.activePhase)
             {
                 // TODO run the effect, whatever it is
+                var jobs = phaseEffect.GetJobs(Stacks);
+                foreach (IStateJob j in jobs)
+                {
+                    em.jobRunner.QueueJob(j);
+                }
             }
         }
     } 

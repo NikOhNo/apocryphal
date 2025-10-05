@@ -7,7 +7,7 @@ public class StatusIcon : MonoBehaviour
     
     private TextMeshProUGUI stackCount;
     
-    public void Start()
+    public void Awake()
     {
         stackCount = GetComponentInChildren<TextMeshProUGUI>();
     }

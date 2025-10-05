@@ -10,19 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e927fb98d7f3c664594ee0e1baa0e74f, type: 3}
-  m_Name: SE_Vulnerable
+  m_Name: StatusBurning
   m_EditorClassIdentifier: 
-  effectName: Vulnerable
-  flavorText: Takes 25% extra damage from attacks.
+  effectName: Burning
+  flavorText: ow ow hot hot hot
   icon: {fileID: 2800000, guid: 1cbd84feef6087c48a070e675b165a00, type: 3}
-  effect:
-    rid: 4292273068202786897
+  phaseEffects:
+  - rid: 415668288605126731
+  stackable: 1
+  maxStacks: 99
   references:
     version: 2
     RefIds:
-    - rid: 4292273068202786897
-      type: {class: VulnerableStatusEffect, ns: , asm: Assembly-CSharp}
+    - rid: 415668288605126731
+      type: {class: PhaseEffectIndirectDamage, ns: , asm: Assembly-CSharp}
       data:
-        expire:
-          m_PersistentCalls:
-            m_Calls: []
+        activePhase: 5
+        amountType: 1
+        amountNumber: 100
