@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e927fb98d7f3c664594ee0e1baa0e74f, type: 3}
+  m_Name: SE_Vulnerable
+  m_EditorClassIdentifier: 
+  effectName: Vulnerable
+  flavorText: Takes 25% extra damage from attacks.
+  icon: {fileID: 2800000, guid: 1cbd84feef6087c48a070e675b165a00, type: 3}
+  effect:
+    rid: 4292273068202786897
+  references:
+    version: 2
+    RefIds:
+    - rid: 4292273068202786897
+      type: {class: VulnerableStatusEffect, ns: , asm: Assembly-CSharp}
+      data:
+        expire:
+          m_PersistentCalls:
+            m_Calls: []

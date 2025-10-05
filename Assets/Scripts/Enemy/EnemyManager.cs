@@ -54,7 +54,7 @@ public class EnemyManager : MonoBehaviour
             var go = Instantiate(enemy, transform);
             Enemy enemyInstance = go.GetComponent<Enemy>();
             _enemies.Add(enemyInstance);
-            enemyInstance.onDeath.AddListener(OnEnemyDie);
+            enemyInstance.OnDeath.AddListener(OnEnemyDie);
             enemyInstance.Initialize(transform.GetComponentInParent<Canvas>());
             
             EnemyCount += 1; // aurgh
@@ -90,7 +90,7 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-    public void OnEnemyDie(Enemy e)
+    public void OnEnemyDie(Entity e)
     {
         EnemyCount -= 1;
     }

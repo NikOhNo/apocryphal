@@ -3,52 +3,24 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Enemy : MonoBehaviour
+public class Enemy : Entity
 {
-    // damage and stuff shall be dealt directly by accessing the healthsystem. same with the player
-    public HealthSystem HealthSystem { get; private set; } = new();
-    public UnityEvent<Enemy> onDeath { get; private set; } = new();
-    
     public GameObject displayPrefab;
     
-    public int maxHealth;
-    public HealthDisplay healthDisplay; // snet in inspector
     public IntentDisplay intentDisplay; // also snet in insnector
     
     [SerializeField] private EnemyBehavior behavior; // SET ME IN THE INSPECTOR PLEEAASEEEEE
-
-    void Awake()
-    {
-        HealthSystem.ResetHealth(maxHealth);
-        
-        // if (initialMove != null)
-        // {
-        //     // probably fine to not do this
-        // }
-        // else
-        // {
-        //     Debug.LogError($"Initial move for enemy {this.name} not set! this enemy's behavior will probably break");
-        // }
-    }
-
+    
+    
     public void Initialize(Canvas canvas)
     {
         var d = Instantiate(displayPrefab, canvas.transform);
         Debug.Log(d);
         healthDisplay = d.GetComponent<HealthDisplay>();
         healthDisplay.SetHealthSystem(HealthSystem);
+        statusDisplay = d.GetComponent<StatusDisplay>();
+        statusDisplay.SetStatusManager(StatusManager);
         intentDisplay = d.GetComponent<IntentDisplay>();
-    }
-
-    void OnEnable()
-    {
-        HealthSystem.OnDeath.AddListener(OnDeath);
-    }
-
-    void OnDeath()
-    {
-        Debug.Log("death");
-        onDeath?.Invoke(this);
     }
 
     // method for selecting intent
