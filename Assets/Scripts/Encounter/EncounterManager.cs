@@ -9,7 +9,8 @@ using UnityEngine.UI;
 
 public class EncounterManager : MonoBehaviour
 {
-    public readonly PlayerMPAP PlayerMPAP = new();
+    public readonly PlayerMPAP playerMPAP = new();
+    public MPAPDisplay MPAPDisplay;
     public Hand hand;
     public HandDisplay handDisplay;
     public Deck deck;
@@ -39,11 +40,30 @@ public class EncounterManager : MonoBehaviour
     
     // data for the encounter, containing its enemies and such
     public EncounterData encounterData;
+
+    private CardPerformer cardPerfomer;
     
     public ICombatState CurrentState { get; private set; }
 
+    #region EventConnectors
+    private void OnEnable()
+    {
+        dragHandler.OnPlayCard.AddListener(cardPerfomer.OnClickCard);
+        playerMPAP.OnMPAPChanged.AddListener(MPAPDisplay.UpdateDisplay);
+    }
+
+    private void OnDisable()
+    {
+        dragHandler.OnPlayCard.RemoveListener(cardPerfomer.OnClickCard);
+        playerMPAP.OnMPAPChanged.RemoveListener(MPAPDisplay.UpdateDisplay);
+
+    }
+    #endregion
+
     private void Awake()
     {
+        cardPerfomer = new(this);
+        MPAPDisplay.Initialize(playerMPAP);
         hand = new(this);
         transitionHandler = new(this);
         jobRunner = new GameObject("JobRunner").AddComponent<JobRunner>(); // haha uhhh okay
@@ -57,12 +77,8 @@ public class EncounterManager : MonoBehaviour
         
         deck.Initialize();
         deckDisplay.UpdateDisplay();
-        
-        // connect the onClickCard event of the main HandDisplay to the CardClickListener
-        dragHandler.OnPlayCard.AddListener(CardClickListener.Instance.OnClickCard); // TODO fixme do some kind of like verification on card clicking
-        // the reason we're doing it like this instead of just directly calling the function on the CardClickListener is
-        // so that we can have an arbitrary HandDisplay
     }
+
 
     public void StartEncounter()
     {
