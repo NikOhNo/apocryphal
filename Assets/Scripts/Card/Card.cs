@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using SerializeReferenceEditor;
 using UnityEngine;
 
+[Serializable]
 [CreateAssetMenu(fileName = "newCard", menuName = "New Card", order = 0)]
 public class Card : ScriptableObject
 {

@@ -12,12 +12,13 @@ public class CardEffectManager
     
     // probably temporary, replace with whatever suits your fancy but this should be called when a card is for sure being played
     // (it doesn't destroy the card or anything so be careful)
-    public void PlayCard(Card card)
+    public void PlayCard(PlayCard playCard)
     {
-        Debug.Log($"Playing card {card.name}");
+        Debug.Log($"Playing card {playCard.Card.name}");
         
-        foreach (CardEffect effect in card.effects)
+        foreach (CardEffect effect in playCard.Card.effects)
         {
+            effect.PlayCard = playCard;
             List<IStateJob> cardJobs = effect.GetJobs();
             foreach (IStateJob cardJob in cardJobs)
             {

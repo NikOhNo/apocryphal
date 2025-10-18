@@ -3,6 +3,7 @@ using UnityEngine.Events;
 
 public class PlayCard
 {
+    public bool isSealed = false;
     public int currentAPCost;
     public int currentMPCost;
 

@@ -2,6 +2,7 @@ namespace Scripts.Deck
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using UnityEngine;
 
@@ -10,26 +11,33 @@ namespace Scripts.Deck
         public List<PlayCard> AllCards => cardsInDeck.Concat(cardsInDiscard).ToList();
         public bool DeckEmpty => cardsInDeck.Count == 0;
 
-        [SerializeField] public readonly Queue<PlayCard> cardsInDeck = new();
+        public readonly Queue<PlayCard> cardsInDeck = new();
         public readonly List<PlayCard> cardsInDiscard = new();
+        public readonly List<PlayCard> cardsInSeal = new();
 
-        readonly string cardDataPath = "Cards";
+        readonly string cardDirectory = "Cards";
+
+        SaveFile saveFile => SaveManager.LoadSaves()[0];
 
         public void Initialize()
         {
-            GatherCards();
+            CreatePlayCards();
             ShuffleCards();
         }
 
-        protected void GatherCards()
+        protected void CreatePlayCards()
         {
-            List<Card> cards = Resources.LoadAll<Card>(cardDataPath).ToList();
-            foreach (var card in cards)
+            List<Card> cards = Resources.LoadAll<Card>(cardDirectory).ToList();
+            foreach (var kvp in saveFile.deckCardCounts)
             {
-                PlayCard playCard = new();
-                playCard.Initialize(card);
+                for (int i = 0; i < kvp.Value; i++)
+                {
+                    PlayCard playCard = new();
+                    string cardDataPath = Path.Combine(cardDirectory, kvp.Key);
+                    playCard.Initialize(Resources.Load<Card>(cardDataPath));
 
-                cardsInDeck.Enqueue(playCard);
+                    cardsInDeck.Enqueue(playCard);
+                }
             }
             Debug.Log($"deck size is {cardsInDeck.Count}");
         }
@@ -80,8 +88,17 @@ namespace Scripts.Deck
         public void Discard(PlayCard card)
         {
             if (card == null) throw new ArgumentNullException();
-            Debug.Log($"Adding card to discrd: {card.Card.name}");
+            if (cardsInSeal.Contains(card) || card.isSealed) return; // dont discard & recycle cards that are sealed
+            Debug.Log($"Adding card to discard: {card.Card.name}");
             cardsInDiscard.Add(card);
+        }
+
+        public void Seal(PlayCard card)
+        {
+            if (card == null) throw new ArgumentNullException();
+            Debug.Log($"Adding card to seal: {card.Card.name}");
+            card.isSealed = true;
+            cardsInSeal.Add(card);
         }
     }
 }

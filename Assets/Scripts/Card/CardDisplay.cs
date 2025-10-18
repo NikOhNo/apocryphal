@@ -9,7 +9,8 @@ public class CardDisplay : MonoBehaviour
 
     [SerializeField] TMP_Text cardName;
     [SerializeField] TMP_Text cardDescription;
-    [SerializeField] TMP_Text damage;
+    [SerializeField] TMP_Text ap;
+    [SerializeField] TMP_Text mp;
 
     public PlayCard PlayCard { get; private set;}
     private RectTransform rectTransform;
@@ -41,5 +42,7 @@ public class CardDisplay : MonoBehaviour
         PlayCard = playCard;
         cardName.text = playCard.Card.name;
         cardDescription.text = playCard.Card.description;
+        ap.text = playCard.currentAPCost.ToString();
+        mp.text = playCard.currentMPCost.ToString();
     }
 }
