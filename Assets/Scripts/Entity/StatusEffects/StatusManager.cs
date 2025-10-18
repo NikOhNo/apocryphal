@@ -12,12 +12,34 @@ public class StatusManager
         Weakened,
         Burning
     }
+    
+    public Dictionary<StatusEffectType, StatusEffectData> statusDictionary;
 
     public List<StatusEffect> StatusEffects { get; private set; } = new List<StatusEffect>();
     
-    public UnityEvent<StatusEffect> statusStackUpdated = new UnityEvent<StatusEffect>();
+    public UnityEvent<StatusEffect, int> statusStackUpdated = new UnityEvent<StatusEffect, int>();
     public UnityEvent<StatusEffect> statusAdded = new UnityEvent<StatusEffect>();
     public UnityEvent<StatusEffect> statusRemoved = new UnityEvent<StatusEffect>();
+
+    public StatusManager()
+    {
+        if (statusDictionary == null)
+        {
+            statusDictionary = new Dictionary<StatusEffectType, StatusEffectData>();
+            StatusEffectData[] statusData = Resources.LoadAll<StatusEffectData>("Statuses");
+            foreach (StatusEffectData eff in statusData)
+            {
+                if (StatusEffectType.TryParse(eff.effectName, out StatusEffectType type))
+                {
+                    statusDictionary.Add(type, eff);
+                }
+                else
+                {
+                    Debug.LogError($"status type's name ({eff.name}) doesn't match the enum, will fix implementation later");
+                }
+            }
+        }
+    }
 
     // call from the entity that this statusmanager is attached to every time there's a state change
     public void OnEncounterState(StateType stateType, EncounterManager em)
@@ -66,6 +88,10 @@ public class StatusManager
             StatusEffect createdEffect = CreateEffectOfType(statusType);
             createdEffect.StatusType = statusType;
             StatusEffects.Add(createdEffect);
+            createdEffect.stacksUpdated.AddListener((int s) =>
+            {
+                OnStatusStackUpdated(createdEffect, s);
+            });
             createdEffect.AddStacks(stacks - 1);
             statusAdded?.Invoke(createdEffect);
             Debug.Log($"created status effect {createdEffect}");
@@ -77,7 +103,7 @@ public class StatusManager
                 if (contained.StatusType == statusType)
                 {
                     contained.AddStacks(stacks);
-                    statusStackUpdated?.Invoke(contained);
+                    // statusStackUpdated?.Invoke(contained);
                 }
             }
         }
@@ -98,10 +124,16 @@ public class StatusManager
             if (contained.StatusType == effectType)
             {
                 StatusEffects.Remove(contained);
+                contained.stacksUpdated.RemoveAllListeners(); // FIXME might be a BAD idea to use removealllisteners here probably so just make sure there's nothing else that adds a listener to it
                 // hope and pray there's no more effects of the same type in the list
                 statusRemoved?.Invoke(contained);
                 return;
             }
         }
+    }
+
+    public void OnStatusStackUpdated(StatusEffect eff, int stacks)
+    {
+        statusStackUpdated?.Invoke(eff, stacks);
     }
 }

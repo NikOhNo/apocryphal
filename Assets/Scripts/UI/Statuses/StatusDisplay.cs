@@ -36,7 +36,7 @@ public class StatusDisplay : MonoBehaviour
         _statusManager.statusStackUpdated.AddListener(OnStatusStackUpdated);
     }
 
-    private void OnStatusStackUpdated(StatusEffect effect)
+    private void OnStatusStackUpdated(StatusEffect effect, int stacks)
     {
         foreach (var icon in iconList)
         {
@@ -52,6 +52,7 @@ public class StatusDisplay : MonoBehaviour
     {
         var newIcon = Instantiate(PF_StatusIcon, gridLayoutGroup.transform);
         newIcon.statusEffectType = effect.StatusType;
+        newIcon.SetIcon(_statusManager.statusDictionary[effect.StatusType].icon); // bleh
         iconList.Add(newIcon);
         newIcon.SetStacks(effect.Stacks);
     }

@@ -40,7 +40,8 @@ public class PlayerTurn : CombatState
 
     private void AddStatusJob()
     {
-        Jobs.Enqueue(new ApplyStatusJob(1)); // always applies burning rn!
+        var status = _encounter.addStatusPickerButton.selectedStatus;
+        Jobs.Enqueue(new ApplyStatusJob(1, status));
     }
 
     protected override bool CanExit()

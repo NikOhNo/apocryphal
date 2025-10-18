@@ -11,11 +11,11 @@ public class StatusEffectData : ScriptableObject
     public string effectName;
     public string flavorText;
     
-    public Texture icon;
+    public Sprite icon;
     
     //[SR, SerializeReference] public StatusEffect effect; 
     
-    [SR, SerializeReference] public List<PhaseEffect> phaseEffects; // effects that are run on a certain phase
+    [SR, SerializeReference] public List<TriggeredEffect> phaseEffects; // effects that are run on a certain phase
     
     // TODO add triggerEffects which are run on certain conditions
     

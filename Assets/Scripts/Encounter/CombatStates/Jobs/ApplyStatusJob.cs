@@ -7,20 +7,19 @@ public class ApplyStatusJob : IStateJob
     public UnityEvent OnComplete { get; } = new();
     
     private int _stacks;
-    private StatusManager.StatusEffectType statusType;
-    //private StatusEffectData _statusEffect;
     
-    public ApplyStatusJob(int stacks) 
+    private StatusManager.StatusEffectType _selectedStatus;
+    
+    public ApplyStatusJob(int stacks, StatusManager.StatusEffectType selectedStatus) 
     { 
         _stacks = stacks;
-        statusType = StatusManager.StatusEffectType.Burning;
+        _selectedStatus = selectedStatus;
     }
 
     public void StartJob(EncounterManager em)
     {
         Debug.Log("Apply status job started");
-        // FIXME just adding the status to the player AND the effect is hardcoded
-        em.player.StatusManager.AddEffect(statusType, _stacks);
+        em.player.StatusManager.AddEffect(_selectedStatus, _stacks);
         OnComplete?.Invoke();
     }
 }

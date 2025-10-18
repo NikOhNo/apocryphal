@@ -9,13 +9,19 @@ public class DamagePlayerJob : IStateJob
     public UnityEvent OnComplete { get; } = new();
     
     private int _damage;
-    
-    public DamagePlayerJob(int amount) { _damage = amount; }
+    // private Entity _target;
+
+    public DamagePlayerJob(int amount)
+    {
+        _damage = amount;
+        // _target = target;
+    }
 
     public void StartJob(EncounterManager em)
     {
         Debug.Log("Damage player job started");
         em.player.HealthSystem.TakeHit(_damage);
+        // _target.HealthSystem.TakeHit(_damage);
         OnComplete?.Invoke();
     }
 }

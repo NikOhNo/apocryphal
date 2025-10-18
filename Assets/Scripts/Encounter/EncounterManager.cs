@@ -17,6 +17,7 @@ public class EncounterManager : MonoBehaviour
     public RoundCounter roundCounter;
     public ButtonDisplay endTurnButton;
     public ButtonDisplay addStatusButton;
+    public DebugAddStatusButton addStatusPickerButton;
     public StateDisplay stateDisplay;
     
     public Player player; // ref to player.... good maybe probably

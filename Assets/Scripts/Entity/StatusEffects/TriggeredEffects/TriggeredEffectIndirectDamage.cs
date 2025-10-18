@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PhaseEffectIndirectDamage : PhaseEffect
+public class TriggeredEffectIndirectDamage : TriggeredEffect
 {
     // (based on stacks)
 
@@ -14,9 +14,11 @@ public class PhaseEffectIndirectDamage : PhaseEffect
     public AmountType amountType;
     public int amountNumber;
 
-    public override List<IStateJob> GetJobs(int stacks)
+    public override List<IStateJob> GetJobs(StatusEffect eff)
     {
+        this.effect = eff;
         var list = new List<IStateJob>();
+        int stacks = effect.Stacks; // effect is on the superclass
 
         int damageAmount = 0;
         if (amountType == AmountType.Flat)

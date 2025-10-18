@@ -4,8 +4,9 @@ using UnityEngine.Events;
 public class Entity : MonoBehaviour
 {
     public HealthSystem HealthSystem { get; private set; } = new();
-    public StatusManager StatusManager { get; private set; } = new();
-    
+    public StatusManager StatusManager { get; private set; }
+    public DamageCalculator DamageCalculator { get; private set; } = new();
+
     public UnityEvent<Entity> OnDeath { get; private set; } = new();
     public int maxHealth;
     public HealthDisplay healthDisplay; // snet in inspector
@@ -15,6 +16,7 @@ public class Entity : MonoBehaviour
     
     void Awake()
     {
+        StatusManager = new();
         HealthSystem.ResetHealth(maxHealth);
         if (healthDisplay != null)
         {
@@ -24,6 +26,8 @@ public class Entity : MonoBehaviour
         {
             statusDisplay.SetStatusManager(StatusManager);
         }
+        
+        DamageCalculator.SetHealthSystem(HealthSystem);
     }
 
     void OnEnable()

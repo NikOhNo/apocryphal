@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectName: Burning
   flavorText: ow ow hot hot hot
-  icon: {fileID: 2800000, guid: 1cbd84feef6087c48a070e675b165a00, type: 3}
+  icon: {fileID: 6669560127030847859, guid: 1cbd84feef6087c48a070e675b165a00, type: 3}
   phaseEffects:
   - rid: 415668288605126731
+  - rid: 2048014400861241482
   stackable: 1
   maxStacks: 99
   references:
@@ -28,3 +29,9 @@ MonoBehaviour:
         activePhase: 5
         amountType: 1
         amountNumber: 100
+    - rid: 2048014400861241482
+      type: {class: PhaseEffectReduceStacks, ns: , asm: Assembly-CSharp}
+      data:
+        activePhase: 5
+        amountType: 1
+        amountNumber: 50

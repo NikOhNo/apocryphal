@@ -14,15 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectName: Vulnerable
   flavorText: Takes 25% extra damage from attacks.
-  icon: {fileID: 2800000, guid: 1cbd84feef6087c48a070e675b165a00, type: 3}
-  effect:
-    rid: 4292273068202786897
+  icon: {fileID: 3289760982041213867, guid: d20d296c91c7a9640b13cdd7a3eedb39, type: 3}
+  phaseEffects: []
+  stackable: 1
+  maxStacks: 99
   references:
     version: 2
-    RefIds:
-    - rid: 4292273068202786897
-      type: {class: VulnerableStatusEffect, ns: , asm: Assembly-CSharp}
-      data:
-        expire:
-          m_PersistentCalls:
-            m_Calls: []
+    RefIds: []
